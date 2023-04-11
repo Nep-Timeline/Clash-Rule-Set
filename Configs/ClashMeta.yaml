@@ -83,7 +83,6 @@ dns:
      - https://doh.360.cn/dns-query # 360 DoH DNS
      - https://mozilla.cloudflare-dns.com/dns-query#DNS&h3=true # 指定策略组和使用 HTTP/3
      - dhcp://en0 # dns from dhcp
-     - quic://dns.adguard.com:784 # DNS over QUIC
   fallback:
      - 8.8.8.8 # 谷歌DNS
      - 1.1.1.1 # Cloudflare DNS
