@@ -113,12 +113,3 @@ dns:
     ## global，dns 为 rule-providers 中的名为 global 和 dns 规则订阅，
     ## 且 behavior 必须为 domain/classical，当为 classical 时仅会生效域名类规则 
     # "rule-set:global,dns": 8.8.8.8
-tun:
-  enable: true
-  stack: gvisor
-  auto-route: true
-  auto-detect-interface: true
-  strict_route: true
-  dns-hijack:
-    - any:53
-    - tcp://any:53
