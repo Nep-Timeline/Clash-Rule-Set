@@ -95,8 +95,9 @@ dns:
     # "rule-set:global,dns": 8.8.8.8
 tun:
   enable: true
-  stack: system
+  stack: gvisor
   auto-route: true
   auto-detect-interface: true
+  strict_route: true
   dns-hijack:
     - any:53
