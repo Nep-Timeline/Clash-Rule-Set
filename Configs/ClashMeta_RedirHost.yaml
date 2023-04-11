@@ -1,0 +1,100 @@
+port: 7890
+
+socks-port: 7891
+
+allow-lan: true # 允许局域网连接
+bind-address: "*" # 绑定 IP 地址，仅作用于 allow-lan 为 true，'*'表示所有地址
+
+#  find-process-mode has 3 values:always, strict, off
+#  - always, 开启，强制匹配所有进程
+#  - strict, 默认，由 clash 判断是否开启
+#  - off, 不匹配进程，推荐在路由器上使用此模式
+find-process-mode: strict
+
+mode: rule
+
+#自定义 geodata url
+geox-url:
+  geoip: "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat"
+  geosite: "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat"
+  mmdb: "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/country.mmdb"
+
+log-level: info # 日志等级 silent/error/warning/info/debug
+
+ipv6: true # 开启 IPv6 总开关，关闭阻断所有 IPv6 链接和屏蔽 DNS 请求 AAAA 记录
+
+external-controller: 127.0.0.1:9090
+experimental:
+  ignore-resolve-fail: true
+sniffer:                           #【Meta专属】sniffer域名嗅探器
+  enable: false                    # 嗅探器开关       
+                                   # 开启后对 redir-host 类型识别的流量进行强制嗅探
+                                   # 包含 Tun、Redir 和 TProxy 或 DNS 为 redir-host
+  # force-dns-mapping: false
+  # parse-pure-ip: false           # 对所有未获取到域名的流量进行强制嗅探
+  
+  override-destination: false      # 是否使用嗅探结果作为实际访问，默认 true
+                                   # 全局配置，优先级低于 sniffer.sniff 实际配置
+  sniff: # TLS 默认如果不配置 ports 默认嗅探 443
+    TLS:
+      ports: [443, 8443]
+    HTTP: # 需要嗅探的端口, 默认嗅探 80
+      ports: [80, 8080-8880]
+      override-destination: true # 可覆盖 sniffer.override-destination
+  force-domain:
+    - +.v2ex.com
+  # 白名单，跳过嗅探结果
+  skip-domain:
+    - Mijia Cloud
+dns:
+  enable: true
+  default-nameserver:
+    - 114.114.114.114
+    - 8.8.8.8
+    - tls://1.12.12.12:853
+    - tls://223.5.5.5:853
+  enhanced-mode: redir-host
+  # use-hosts: true # 查询 hosts
+  nameserver:
+     - 223.5.5.5 # 阿里DNS
+     - 180.76.76.76 # 百度DNS
+     - 119.29.29.29 # 腾讯DNS
+     - 117.50.11.11 # ONE DNS拦截版 恶意网站拦截、广告过滤
+     - 117.50.10.10 # ONE DNS纯净版 直接返回其真实的响应结果
+     - 114.114.114.114 # 114DNS
+     - 8.8.8.8 # default value
+     - https://doh.pub/dns-query # DNS over HTTPS
+     - https://dns.alidns.com/dns-query # 阿里 DoH DNS
+     - https://doh.360.cn/dns-query # 360 DoH DNS
+     - https://mozilla.cloudflare-dns.com/dns-query#DNS&h3=true # 指定策略组和使用 HTTP/3
+     - dhcp://en0 # dns from dhcp
+     - quic://dns.adguard.com:784 # DNS over QUIC
+  fallback:
+     - 8.8.8.8 # 谷歌DNS
+     - 1.1.1.1 # Cloudflare DNS
+     - tls://dns.rubyfish.cn:853
+     - tls://1.0.0.1:853
+     - tls://dns.google:853
+     - https://dns.rubyfish.cn/dns-query
+     - https://cloudflare-dns.com/dns-query
+     - https://dns.google/dns-query
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+    geosite:
+      - gfw
+    ipcidr:
+      - '*.lan'
+      - 240.0.0.0/4,
+      - 0.0.0.0/32
+  # 配置查询域名使用的 DNS 服务器
+  #nameserver-policy:
+    #   'www.baidu.com': '114.114.114.114'
+    #   '+.internal.crop.com': '10.0.0.1'
+    #"geosite:cn,private,apple":
+    #  - https://doh.pub/dns-query
+    #  - https://dns.alidns.com/dns-query
+    #"www.baidu.com,+.google.cn": [223.5.5.5, https://dns.alidns.com/dns-query]
+    ## global，dns 为 rule-providers 中的名为 global 和 dns 规则订阅，
+    ## 且 behavior 必须为 domain/classical，当为 classical 时仅会生效域名类规则 
+    # "rule-set:global,dns": 8.8.8.8
