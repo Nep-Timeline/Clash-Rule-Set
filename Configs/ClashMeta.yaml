@@ -29,6 +29,12 @@ ipv6: true # 开启 IPv6 总开关，关闭阻断所有 IPv6 链接和屏蔽 DNS
 
 external-controller: 127.0.0.1:9090
 
+profile: # 存储 select 选择记录
+  store-selected: false
+  
+  # 持久化 fake-ip
+  store-fake-ip: true
+
 # Tun 配置
 tun:# Tun 配置
 tun:
