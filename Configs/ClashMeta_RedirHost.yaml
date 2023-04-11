@@ -24,10 +24,13 @@ log-level: info # 日志等级 silent/error/warning/info/debug
 ipv6: true # 开启 IPv6 总开关，关闭阻断所有 IPv6 链接和屏蔽 DNS 请求 AAAA 记录
 
 external-controller: 127.0.0.1:9090
-experimental:
-  ignore-resolve-fail: true
+ebpf:
+  auto-redir: # redirect 模式，仅支持 TCP
+    - eth0
+  redirect-to-tun: # UDP+TCP 使用该功能请勿启用 auto-route
+    - eth0
 sniffer:                           #【Meta专属】sniffer域名嗅探器
-  enable: false                    # 嗅探器开关       
+  enable: true                     # 嗅探器开关       
                                    # 开启后对 redir-host 类型识别的流量进行强制嗅探
                                    # 包含 Tun、Redir 和 TProxy 或 DNS 为 redir-host
   # force-dns-mapping: false
