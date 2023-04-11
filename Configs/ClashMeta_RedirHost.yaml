@@ -2,6 +2,10 @@ port: 7890
 
 socks-port: 7891
 
+geodata-mode: true
+
+tcp-concurrent: true
+
 allow-lan: true # 允许局域网连接
 bind-address: "*" # 绑定 IP 地址，仅作用于 allow-lan 为 true，'*'表示所有地址
 
