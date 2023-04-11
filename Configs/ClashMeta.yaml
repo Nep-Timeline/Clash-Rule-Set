@@ -37,7 +37,18 @@ dns:
   fake-ip-range: 198.18.0.1/16
   fake-ip-filter: # fake ip 白名单列表
      - '*.lan'
+     - +.stun.*.*
+     - +.stun.*.*.*
+     - +.stun.*.*.*.*
+     - +.stun.*.*.*.*.*
      - localhost.ptlogin2.qq.com
+     - "*.n.n.srv.nintendo.net"
+     - +.stun.playstation.net
+     - xbox.*.*.microsoft.com
+     - "*.*.xboxlive.com"
+     - "*.msftncsi.com"
+     - "*.msftconnecttest.com"
+     - WORKGROUP
   # use-hosts: true # 查询 hosts
   nameserver:
      - 223.5.5.5 # 阿里DNS
@@ -82,3 +93,10 @@ dns:
     ## global，dns 为 rule-providers 中的名为 global 和 dns 规则订阅，
     ## 且 behavior 必须为 domain/classical，当为 classical 时仅会生效域名类规则 
     # "rule-set:global,dns": 8.8.8.8
+tun:
+  enable: true
+  stack: system
+  auto-route: true
+  auto-detect-interface: true
+  dns-hijack:
+    - any:53
