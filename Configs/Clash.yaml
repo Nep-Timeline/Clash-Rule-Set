@@ -62,7 +62,6 @@ tun:
   # - com.android.captiveportallogin
 dns:
   enable: true
-  listen: any:53 # 开启 DNS 服务器监听
   default-nameserver:
     - 114.114.114.114
     - 8.8.8.8
