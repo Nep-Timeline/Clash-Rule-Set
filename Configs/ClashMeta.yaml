@@ -39,9 +39,9 @@ profile: # 存储 select 选择记录
 tun:# Tun 配置
 tun:
   enable: false
-  stack: system # gvisor / lwip
+  stack: gvisor # system / lwip
   dns-hijack:
-    - 0.0.0.0:53 # 需要劫持的 DNS
+    - any:53 # 需要劫持的 DNS
   auto-detect-interface: true # 自动识别出口网卡
   auto-route: true # 配置路由表
   # mtu: 9000 # 最大传输单元
@@ -96,7 +96,7 @@ sniffer:                           #【Meta专属】sniffer域名嗅探器
 
 dns:
   enable: true
-  listen: 0.0.0.0:53 # 开启 DNS 服务器监听
+  listen: any:53 # 开启 DNS 服务器监听
   default-nameserver:
     - 114.114.114.114
     - 8.8.8.8
