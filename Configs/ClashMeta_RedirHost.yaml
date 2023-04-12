@@ -113,7 +113,7 @@ dns:
      - https://doh.pub/dns-query # DNS over HTTPS
      - https://dns.alidns.com/dns-query # 阿里 DoH DNS
      - https://doh.360.cn/dns-query # 360 DoH DNS
-     - https://mozilla.cloudflare-dns.com/dns-query#DNS&h3=true # 指定策略组和使用 HTTP/3
+     - https://mozilla.cloudflare-dns.com/dns-query # Cloudflare DoH DNS
      - dhcp://en0 # dns from dhcp
      - quic://dns.adguard.com:784 # DNS over QUIC
   fallback:
