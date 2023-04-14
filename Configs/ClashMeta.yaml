@@ -27,7 +27,7 @@ log-level: info # 日志等级 silent/error/warning/info/debug
 
 ipv6: true # 开启 IPv6 总开关，关闭阻断所有 IPv6 链接和屏蔽 DNS 请求 AAAA 记录
 
-external-controller: 127.0.0.1:9090
+external-controller: :9090
 
 profile: # 存储 select 选择记录
   store-selected: false
