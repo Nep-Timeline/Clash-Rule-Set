@@ -1,6 +1,10 @@
-port: 7890
+# port: 7890 # HTTP(S) 代理服务器端口
+# socks-port: 7891 # SOCKS5 代理端口
+mixed-port: 10801 # HTTP(S) 和 SOCKS 代理混合端口
+# redir-port: 7892 # 透明代理端口，用于 Linux 和 MacOS
 
-socks-port: 7891
+# Transparent proxy server port for Linux (TProxy TCP and TProxy UDP)
+# tproxy-port: 7893
 
 allow-lan: true # 允许局域网连接
 bind-address: "*" # 绑定 IP 地址，仅作用于 allow-lan 为 true，'*'表示所有地址
@@ -13,23 +17,17 @@ find-process-mode: strict
 
 mode: rule
 
-#自定义 geodata url
-geox-url:
-  geoip: "https://cdn.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geoip.dat"
-  geosite: "https://cdn.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geosite.dat"
-  mmdb: "https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/Country.mmdb"
-
 log-level: info # 日志等级 silent/error/warning/info/debug
 
 ipv6: true # 开启 IPv6 总开关，关闭阻断所有 IPv6 链接和屏蔽 DNS 请求 AAAA 记录
 
-external-controller: :9090
+external-controller: 0.0.0.0:9090
 # Tun 配置
 tun:
-  enable: false
-  stack: gvisor # system / lwip
+  enable: true
+  stack: system # gvisor / lwip
   dns-hijack:
-    - any:53 # 需要劫持的 DNS
+    - 'any:53' # 需要劫持的 DNS
   auto-detect-interface: true # 自动识别出口网卡
   auto-route: true # 配置路由表
   # mtu: 9000 # 最大传输单元
@@ -60,19 +58,32 @@ tun:
   # - com.android.chrome
   # exclude_package: # 排除被路由的 Android 应用包名
   # - com.android.captiveportallogin
+
 dns:
   enable: true
+  listen: 0.0.0.0:1053
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter: # fake ip 白名单列表
+     - '*.lan'
+     - +.stun.*.*
+     - +.stun.*.*.*
+     - +.stun.*.*.*.*
+     - +.stun.*.*.*.*.*
+     - localhost.ptlogin2.qq.com
+     - "*.n.n.srv.nintendo.net"
+     - +.stun.playstation.net
+     - xbox.*.*.microsoft.com
+     - "*.*.xboxlive.com"
+     - "*.msftncsi.com"
+     - "*.msftconnecttest.com"
+     - WORKGROUP
+  # use-hosts: true # 查询 hosts
   default-nameserver:
     - 114.114.114.114
     - 8.8.8.8
     - tls://1.12.12.12:853
     - tls://223.5.5.5:853
-  enhanced-mode: fake-ip
-  fake-ip-range: 198.18.0.1/16
-  fake-ip-filter: # fake ip 白名单列表
-     - '*.lan'
-     - localhost.ptlogin2.qq.com
-  # use-hosts: true # 查询 hosts
   nameserver:
      - 223.5.5.5 # 阿里DNS
      - 180.76.76.76 # 百度DNS
@@ -85,7 +96,8 @@ dns:
      - https://dns.alidns.com/dns-query # 阿里 DoH DNS
      - https://doh.360.cn/dns-query # 360 DoH DNS
      - https://mozilla.cloudflare-dns.com/dns-query # Cloudflare DoH DNS
-     - dhcp://en0 # dns from dhcp
+  proxy-server-nameserver:
+     - https://doh.pub/dns-query
   fallback:
      - 8.8.8.8 # 谷歌DNS
      - 1.1.1.1 # Cloudflare DNS
@@ -98,8 +110,6 @@ dns:
   fallback-filter:
     geoip: true
     geoip-code: CN
-    geosite:
-      - gfw
     ipcidr:
       - '*.lan'
       - 240.0.0.0/4,
@@ -108,9 +118,6 @@ dns:
   #nameserver-policy:
     #   'www.baidu.com': '114.114.114.114'
     #   '+.internal.crop.com': '10.0.0.1'
-    #"geosite:cn,private,apple":
-    #  - https://doh.pub/dns-query
-    #  - https://dns.alidns.com/dns-query
     #"www.baidu.com,+.google.cn": [223.5.5.5, https://dns.alidns.com/dns-query]
     ## global，dns 为 rule-providers 中的名为 global 和 dns 规则订阅，
     ## 且 behavior 必须为 domain/classical，当为 classical 时仅会生效域名类规则 
