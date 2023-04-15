@@ -1,10 +1,15 @@
-port: 7890
+# port: 7890 # HTTP(S) 代理服务器端口
+# socks-port: 7891 # SOCKS5 代理端口
+mixed-port: 10801 # HTTP(S) 和 SOCKS 代理混合端口
+# redir-port: 7892 # 透明代理端口，用于 Linux 和 MacOS
 
-socks-port: 7891
+# Transparent proxy server port for Linux (TProxy TCP and TProxy UDP)
+# tproxy-port: 7893
 
 geodata-mode: true
 
-tcp-concurrent: true
+tcp-concurrent: true         #【Meta专属】TCP连接并发，如果域名解析结果对应多个IP，
+                             # 并发所有IP，选择握手最快的IP进行连接
 
 allow-lan: true # 允许局域网连接
 bind-address: "*" # 绑定 IP 地址，仅作用于 allow-lan 为 true，'*'表示所有地址
@@ -30,17 +35,17 @@ ipv6: true # 开启 IPv6 总开关，关闭阻断所有 IPv6 链接和屏蔽 DNS
 external-controller: :9090
 
 profile: # 存储 select 选择记录
-  store-selected: false
+  store-selected: true
   
   # 持久化 fake-ip
   store-fake-ip: true
 
 # Tun 配置
 tun:
-  enable: false
-  stack: gvisor # system / lwip
+  enable: true
+  stack: system # gvisor / lwip
   dns-hijack:
-    - any:53 # 需要劫持的 DNS
+    - 'any:53' # 需要劫持的 DNS
   auto-detect-interface: true # 自动识别出口网卡
   auto-route: true # 配置路由表
   # mtu: 9000 # 最大传输单元
@@ -95,13 +100,29 @@ sniffer:                           #【Meta专属】sniffer域名嗅探器
 
 dns:
   enable: true
+  listen: 0.0.0.0:1053
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter: # fake ip 白名单列表
+     - '*.lan'
+     - +.stun.*.*
+     - +.stun.*.*.*
+     - +.stun.*.*.*.*
+     - +.stun.*.*.*.*.*
+     - localhost.ptlogin2.qq.com
+     - "*.n.n.srv.nintendo.net"
+     - +.stun.playstation.net
+     - xbox.*.*.microsoft.com
+     - "*.*.xboxlive.com"
+     - "*.msftncsi.com"
+     - "*.msftconnecttest.com"
+     - WORKGROUP
+  # use-hosts: true # 查询 hosts
   default-nameserver:
     - 114.114.114.114
     - 8.8.8.8
     - tls://1.12.12.12:853
     - tls://223.5.5.5:853
-  enhanced-mode: redir-host
-  # use-hosts: true # 查询 hosts
   nameserver:
      - 223.5.5.5 # 阿里DNS
      - 180.76.76.76 # 百度DNS
@@ -114,8 +135,8 @@ dns:
      - https://dns.alidns.com/dns-query # 阿里 DoH DNS
      - https://doh.360.cn/dns-query # 360 DoH DNS
      - https://mozilla.cloudflare-dns.com/dns-query # Cloudflare DoH DNS
-     - dhcp://en0 # dns from dhcp
-     - quic://dns.adguard.com:784 # DNS over QUIC
+  proxy-server-nameserver:
+     - https://doh.pub/dns-query
   fallback:
      - 8.8.8.8 # 谷歌DNS
      - 1.1.1.1 # Cloudflare DNS
