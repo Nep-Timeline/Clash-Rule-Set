@@ -1,2 +1,2 @@
-# Clash-Rule-Set
-Rule Set for Clash Kernel.
+# Clash rule set
+Rule set for Clash Kernel.
