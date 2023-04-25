@@ -107,7 +107,7 @@ dns:
   enable: true
   prefer-h3: true # 开启 DoH 支持 HTTP/3，将并发尝试
   listen: 0.0.0.0:1053
-  enhanced-mode: fake-ip
+  enhanced-mode: redir-host
   fake-ip-range: 198.18.0.1/16
   fake-ip-filter: # fake ip 白名单列表
      - '*.lan'
