@@ -120,8 +120,8 @@ dns:
      - https://dns.alidns.com/dns-query # 阿里 DoH DNS
      - https://doh.360.cn/dns-query # 360 DoH DNS
      - https://mozilla.cloudflare-dns.com/dns-query # Cloudflare DoH DNS
-  proxy-server-nameserver:
-     - https://doh.pub/dns-query
+  # proxy-server-nameserver:
+  #    - https://doh.pub/dns-query
   fallback:
      - 8.8.8.8 # 谷歌DNS
      - 1.1.1.1 # Cloudflare DNS
@@ -140,17 +140,11 @@ dns:
       - '*.lan'
       - 240.0.0.0/4,
       - 0.0.0.0/32
-  # 配置查询域名使用的 DNS 服务器
-  #nameserver-policy:
-    #   'www.baidu.com': '114.114.114.114'
-    #   '+.internal.crop.com': '10.0.0.1'
-    #"geosite:cn,private,apple":
-    #  - https://doh.pub/dns-query
-    #  - https://dns.alidns.com/dns-query
-    #"www.baidu.com,+.google.cn": [223.5.5.5, https://dns.alidns.com/dns-query]
-    ## global，dns 为 rule-providers 中的名为 global 和 dns 规则订阅，
-    ## 且 behavior 必须为 domain/classical，当为 classical 时仅会生效域名类规则 
-    # "rule-set:global,dns": 8.8.8.8
+# 配置查询域名使用的 DNS 服务器
+  # nameserver-policy:
+    # "geosite:cn,private,apple":
+    #   - https://doh.pub/dns-query
+    #   - https://dns.alidns.com/dns-query
 
 rule-providers:
   exploit-checker:
