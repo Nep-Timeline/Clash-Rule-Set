@@ -141,7 +141,7 @@ dns:
       - '*.lan'
       - 240.0.0.0/4,
       - 0.0.0.0/32
-# 配置查询域名使用的 DNS 服务器
+  # 配置查询域名使用的 DNS 服务器
   # nameserver-policy:
     # "geosite:cn,private,apple":
     #   - https://doh.pub/dns-query
