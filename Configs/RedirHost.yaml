@@ -146,6 +146,7 @@ dns:
      - https://dns.alidns.com/dns-query # 阿里 DoH DNS
      - https://doh.360.cn/dns-query # 360 DoH DNS
      - https://mozilla.cloudflare-dns.com/dns-query # Cloudflare DoH DNS
+  # 配置查询需代理域名使用的 DNS 服务器
   # proxy-server-nameserver:
   #    - https://doh.pub/dns-query
   fallback:
@@ -166,7 +167,7 @@ dns:
       - '*.lan'
       - 240.0.0.0/4,
       - 0.0.0.0/32
-# 配置查询域名使用的 DNS 服务器
+  # 配置查询域名使用的 DNS 服务器
   # nameserver-policy:
     # "geosite:cn,private,apple":
     #   - https://doh.pub/dns-query
