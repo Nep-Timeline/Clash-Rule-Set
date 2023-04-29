@@ -120,6 +120,7 @@ dns:
      - https://dns.alidns.com/dns-query # 阿里 DoH DNS
      - https://doh.360.cn/dns-query # 360 DoH DNS
      - https://mozilla.cloudflare-dns.com/dns-query # Cloudflare DoH DNS
+  # 配置查询需代理域名使用的 DNS 服务器
   # proxy-server-nameserver:
   #    - https://doh.pub/dns-query
   fallback:
