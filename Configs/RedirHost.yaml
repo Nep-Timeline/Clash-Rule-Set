@@ -134,7 +134,7 @@ dns:
     - 8.8.8.8
     - tls://1.12.12.12:853
     - tls://223.5.5.5:853
-  nameserver:
+nameserver:
      - 223.5.5.5 # 阿里DNS
      - 180.76.76.76 # 百度DNS
      - 119.29.29.29 # 腾讯DNS
@@ -145,7 +145,8 @@ dns:
      - https://doh.pub/dns-query # DNS over HTTPS
      - https://dns.alidns.com/dns-query # 阿里 DoH DNS
      - https://doh.360.cn/dns-query # 360 DoH DNS
-     - https://mozilla.cloudflare-dns.com/dns-query # Cloudflare DoH DNS
+     - https://cloudflare-dns.com/dns-query # Cloudflare DoH DNS
+     - https://dns.google/dns-query # Google DoH DNS
   # 配置查询需代理域名使用的 DNS 服务器
   # proxy-server-nameserver:
   #    - https://doh.pub/dns-query
@@ -155,6 +156,7 @@ dns:
      - tls://dns.rubyfish.cn:853
      - tls://1.0.0.1:853
      - tls://dns.google:853
+     - https://doh.pub/dns-query
      - https://dns.rubyfish.cn/dns-query
      - https://cloudflare-dns.com/dns-query
      - https://dns.google/dns-query
