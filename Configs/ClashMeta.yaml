@@ -39,7 +39,8 @@ external-controller: 0.0.0.0:9090
 # Utls is currently support TLS transport in TCP/grpc/WS/HTTP for VLESS/Vmess and trojan.
 global-client-fingerprint: chrome
 
-profile: # 存储 select 选择记录
+profile:
+  # 存储 select 选择记录
   store-selected: true
   
   # 持久化 fake-ip
@@ -82,32 +83,41 @@ tun:
   # exclude_package: # 排除被路由的 Android 应用包名
   # - com.android.captiveportallogin
 
+# DNS配置
 dns:
-  enable: true
+  enable: true # 关闭将使用系统 DNS
   prefer-h3: true # 开启 DoH 支持 HTTP/3，将并发尝试
+  # 开启 DNS 服务器监听
   listen: 0.0.0.0:1053
-  enhanced-mode: fake-ip
+  enhanced-mode: fake-ip # or redir-host
+  # fake-ip 池设置
   fake-ip-range: 198.18.0.1/16
-  fake-ip-filter: # fake ip 白名单列表
+  # 配置不使用fake-ip的域名
+  fake-ip-filter:
      - '*.lan'
-     - +.stun.*.*
-     - +.stun.*.*.*
-     - +.stun.*.*.*.*
-     - +.stun.*.*.*.*.*
+     # - +.stun.*.*
+     # - +.stun.*.*.*
+     # - +.stun.*.*.*.*
+     # - +.stun.*.*.*.*.*
      - localhost.ptlogin2.qq.com
-     - "*.n.n.srv.nintendo.net"
-     - +.stun.playstation.net
-     - xbox.*.*.microsoft.com
-     - "*.*.xboxlive.com"
-     - "*.msftncsi.com"
-     - "*.msftconnecttest.com"
-     - WORKGROUP
+     # - "*.n.n.srv.nintendo.net"
+     # - +.stun.playstation.net
+     # - xbox.*.*.microsoft.com
+     # - "*.*.xboxlive.com"
+     # - "*.msftncsi.com"
+     # - "*.msftconnecttest.com"
+     # - WORKGROUP
+
   # use-hosts: true # 查询 hosts
+
+  # 用于解析 nameserver，fallback 以及其他DNS服务器配置的，DNS 服务域名
+  # 只能使用纯 IP 地址，可使用加密 DNS
   default-nameserver:
     - 114.114.114.114
     - 8.8.8.8
-    - tls://1.12.12.12:853
-    - tls://223.5.5.5:853
+  # DNS主要域名配置
+  # 支持 UDP，TCP，DoT，DoH，DoQ
+  # 这部分为主要 DNS 配置，影响所有直连，确保使用对大陆解析精准的 DNS
   nameserver:
      - 223.5.5.5 # 阿里DNS
      - 180.76.76.76 # 百度DNS
@@ -115,25 +125,29 @@ dns:
      - 117.50.11.11 # ONE DNS拦截版 恶意网站拦截、广告过滤
      - 117.50.10.10 # ONE DNS纯净版 直接返回其真实的响应结果
      - 114.114.114.114 # 114DNS
-     - 8.8.8.8 # default value
+     - 8.8.8.8 # Google DNS
+     - 1.1.1.1 # Cloudflare DNS
      - https://doh.pub/dns-query # DNS over HTTPS
      - https://dns.alidns.com/dns-query # 阿里 DoH DNS
      - https://doh.360.cn/dns-query # 360 DoH DNS
      - https://cloudflare-dns.com/dns-query # Cloudflare DoH DNS
      - https://dns.google/dns-query # Google DoH DNS
+
   # 配置查询需代理域名使用的 DNS 服务器
   # proxy-server-nameserver:
   #    - https://doh.pub/dns-query
+
+  # 当配置 fallback 时，会查询 nameserver 中返回的 IP 是否为 CN，非必要配置
+  # 当不是 CN，则使用 fallback 中的 DNS 查询结果
+  # 确保配置 fallback 时能够正常查询
   fallback:
-     - 8.8.8.8 # 谷歌DNS
+     - 8.8.8.8 # Google DNS
      - 1.1.1.1 # Cloudflare DNS
-     - tls://dns.rubyfish.cn:853
-     - tls://1.0.0.1:853
-     - tls://dns.google:853
      - https://doh.pub/dns-query
      - https://dns.rubyfish.cn/dns-query
      - https://cloudflare-dns.com/dns-query
      - https://dns.google/dns-query
+  # 配置 fallback 使用条件
   fallback-filter:
     geoip: true
     geoip-code: CN
@@ -143,6 +157,7 @@ dns:
       - '*.lan'
       - 240.0.0.0/4,
       - 0.0.0.0/32
+
   # 配置查询域名使用的 DNS 服务器
   # nameserver-policy:
     # "geosite:cn,private,apple":
