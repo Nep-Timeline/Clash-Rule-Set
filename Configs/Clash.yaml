@@ -143,10 +143,10 @@ dns:
       - 240.0.0.0/4,
       - 0.0.0.0/32
 
-rule-providers:
-  exploit-checker:
-    type: http
-    behavior: domain
-    url: "https://Nep-Timeline.github.io/Clash-Rule-Set/Configs/CFW-Settings.yaml"
-    path: ./CFW-Settings.yaml
-    interval: 86400
+# rule-providers:
+  # exploit-checker:
+    # type: http
+    # behavior: domain
+    # url: "https://Nep-Timeline.github.io/Clash-Rule-Set/Configs/CFW-Settings.yaml"
+    # path: ./CFW-Settings.yaml
+    # interval: 86400
