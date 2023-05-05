@@ -167,10 +167,10 @@ dns:
     #   - https://doh.pub/dns-query
     #   - https://dns.alidns.com/dns-query
 
-rule-providers:
-  exploit-checker:
-    type: http
-    behavior: domain
-    url: "https://Nep-Timeline.github.io/Clash-Rule-Set/Configs/CFW-Settings.yaml"
-    path: ./CFW-Settings.yaml
-    interval: 86400
+# rule-providers:
+  # exploit-checker:
+    # type: http
+    # behavior: domain
+    # url: "https://Nep-Timeline.github.io/Clash-Rule-Set/Configs/CFW-Settings.yaml"
+    # path: ./CFW-Settings.yaml
+    # interval: 86400
