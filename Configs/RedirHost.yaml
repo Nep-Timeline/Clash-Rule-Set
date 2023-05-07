@@ -75,7 +75,7 @@ sniffer:
 # Tun 配置
 tun:
   enable: false
-  stack: system # gvisor / lwip
+  stack: gvisor # system / lwip
   dns-hijack:
     - 'any:53' # 需要劫持的 DNS
   auto-detect-interface: true # 自动识别出口网卡
