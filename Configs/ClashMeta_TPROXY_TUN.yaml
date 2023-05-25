@@ -46,7 +46,10 @@ profile:
   store-selected: true
   # 持久化 fake-ip
   store-fake-ip: true
-  
+
+iptables:
+  enable: true
+
 # Tun 配置
 tun:
   enable: true
