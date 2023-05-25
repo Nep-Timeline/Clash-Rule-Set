@@ -47,6 +47,9 @@ profile:
   # 持久化 fake-ip
   store-fake-ip: true
 
+iptables:
+  enable: true
+
 # DNS配置
 dns:
   enable: true # 关闭将使用系统 DNS
