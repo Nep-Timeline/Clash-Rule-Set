@@ -99,17 +99,17 @@ dns:
   # 配置不使用fake-ip的域名
   fake-ip-filter:
      - '*.lan'
-     # - +.stun.*.*
-     # - +.stun.*.*.*
-     # - +.stun.*.*.*.*
-     # - +.stun.*.*.*.*.*
+     - +.stun.*.*
+     - +.stun.*.*.*
+     - +.stun.*.*.*.*
+     - +.stun.*.*.*.*.*
      - localhost.ptlogin2.qq.com
      # - "*.n.n.srv.nintendo.net"
      # - +.stun.playstation.net
      # - xbox.*.*.microsoft.com
      # - "*.*.xboxlive.com"
-     - "*.msftncsi.com"
-     - "*.msftconnecttest.com"
+     # - "*.msftncsi.com"
+     # - "*.msftconnecttest.com"
      # - WORKGROUP
 
   use-hosts: true # 查询 hosts
