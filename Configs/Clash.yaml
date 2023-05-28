@@ -91,7 +91,7 @@ dns:
      # - "*.msftconnecttest.com"
      # - WORKGROUP
 
-  # use-hosts: true # 查询 hosts
+  use-hosts: true # 查询 hosts
 
   # 用于解析 nameserver，fallback 以及其他DNS服务器配置的，DNS 服务域名
   # 只能使用纯 IP 地址，可使用加密 DNS
