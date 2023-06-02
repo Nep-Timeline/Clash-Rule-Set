@@ -62,10 +62,10 @@ dns:
   # 配置不使用fake-ip的域名
   fake-ip-filter:
      - '*.lan'
-     - +.stun.*.*
-     - +.stun.*.*.*
-     - +.stun.*.*.*.*
-     - +.stun.*.*.*.*.*
+     # - +.stun.*.*
+     # - +.stun.*.*.*
+     # - +.stun.*.*.*.*
+     # - +.stun.*.*.*.*.*
      - localhost.ptlogin2.qq.com
      # - "*.n.n.srv.nintendo.net"
      # - +.stun.playstation.net
