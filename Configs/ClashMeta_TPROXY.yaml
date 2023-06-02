@@ -48,7 +48,7 @@ profile:
   store-fake-ip: true
 
 iptables:
-  enable: true
+  enable: false
 
 # DNS配置
 dns:
