@@ -10,7 +10,7 @@ geodata-mode: true
 
 unified-delay: true
 
-# tcp-concurrent: true         #【Meta专属】TCP连接并发，如果域名解析结果对应多个IP，
+tcp-concurrent: true         #【Meta专属】TCP连接并发，如果域名解析结果对应多个IP，
                              # 并发所有IP，选择握手最快的IP进行连接
 
 allow-lan: true # 允许局域网连接
@@ -19,7 +19,7 @@ allow-lan: true # 允许局域网连接
 #  - always, 开启，强制匹配所有进程
 #  - strict, 默认，由 clash 判断是否开启
 #  - off, 不匹配进程，推荐在路由器上使用此模式
-find-process-mode: strict
+find-process-mode: off
 
 mode: rule
 
@@ -56,16 +56,20 @@ tun:
   stack: system # gvisor / lwip
   dns-hijack:
     - 'any:53' # 需要劫持的 DNS
-  auto-detect-interface: true # 自动识别出口网卡
+  # auto-detect-interface: true # 自动识别出口网卡
   auto-route: true # 配置路由表
   # mtu: 9000 # 最大传输单元
   strict_route: true # 将所有连接路由到tun来防止泄漏，但你的设备将无法其他设备被访问
-  inet4_route_address: # 启用 auto_route 时使用自定义路由而不是默认路由
-    - 0.0.0.0/1
-    - 128.0.0.0/1
-  inet6_route_address: # 启用 auto_route 时使用自定义路由而不是默认路由
-    - "::/1"
-    - "8000::/1"
+  inet4-address: # 必须手动设置ipv4地址段
+    - 198.19.0.1/30
+  inet6-address: # 必须手动设置ipv6地址段
+    - "fdfe:dcba:9877::1/126"
+  # inet4_route_address: # 启用 auto_route 时使用自定义路由而不是默认路由
+  #   - 0.0.0.0/1
+  #   - 128.0.0.0/1
+  # inet6_route_address: # 启用 auto_route 时使用自定义路由而不是默认路由
+  #   - "::/1"
+  #   - "8000::/1"
   # endpoint_independent_nat: false # 启用独立于端点的 NAT
   # include_uid: # UID 规则仅在 Linux 下被支持，并且需要 auto_route
   # - 0
