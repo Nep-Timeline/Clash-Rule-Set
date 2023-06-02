@@ -54,7 +54,7 @@ tun:
   stack: gvisor # system / lwip
   dns-hijack:
     - any:53 # 需要劫持的 DNS
-  # auto-detect-interface: true # 自动识别出口网卡
+  auto-detect-interface: true # 自动识别出口网卡
   auto-route: true # 配置路由表
   # mtu: 9000 # 最大传输单元
   strict_route: true # 将所有连接路由到tun来防止泄漏，但你的设备将无法其他设备被访问
