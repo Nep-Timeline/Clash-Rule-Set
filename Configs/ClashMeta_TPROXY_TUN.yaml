@@ -19,7 +19,7 @@ allow-lan: true # 允许局域网连接
 #  - always, 开启，强制匹配所有进程
 #  - strict, 默认，由 clash 判断是否开启
 #  - off, 不匹配进程，推荐在路由器上使用此模式
-find-process-mode: off
+find-process-mode: strict
 
 mode: rule
 
@@ -48,7 +48,7 @@ profile:
   store-fake-ip: true
 
 iptables:
-  enable: true
+  enable: false
 
 # Tun 配置
 tun:
@@ -56,7 +56,7 @@ tun:
   stack: system # gvisor / lwip
   dns-hijack:
     - any:53 # 需要劫持的 DNS
-  # auto-detect-interface: true # 自动识别出口网卡
+  auto-detect-interface: true # 自动识别出口网卡
   auto-route: true # 配置路由表
   # mtu: 9000 # 最大传输单元
   strict_route: true # 将所有连接路由到tun来防止泄漏，但你的设备将无法其他设备被访问
