@@ -26,7 +26,6 @@ external-controller: 0.0.0.0:9090
 profile:
   # 存储 select 选择记录
   store-selected: true
-  
   # 持久化 fake-ip
   store-fake-ip: true
 
