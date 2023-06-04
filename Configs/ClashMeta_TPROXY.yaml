@@ -35,6 +35,7 @@ ipv6: true # 开启 IPv6 总开关，关闭阻断所有 IPv6 链接和屏蔽 DNS
 
 external-controller: 0.0.0.0:9090
 external-ui: ./dashboard/Yacd
+secret: "admin"
 
 # 全局 TLS 指纹，优先低于 proxy 内的 client-fingerprint
 # 可选： "chrome","firefox","safari","ios","random","none" options.
