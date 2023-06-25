@@ -42,6 +42,9 @@ secret: "admin"
 # Utls is currently support TLS transport in TCP/grpc/WS/HTTP for VLESS/Vmess and trojan.
 global-client-fingerprint: chrome
 
+iptables:
+  enable: false
+
 profile:
   # 存储 select 选择记录
   store-selected: true
