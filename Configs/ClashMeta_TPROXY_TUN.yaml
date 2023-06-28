@@ -95,6 +95,8 @@ dns:
   prefer-h3: true # 开启 DoH 支持 HTTP/3，将并发尝试
   # 开启 DNS 服务器监听
   listen: 0.0.0.0:1053
+  # ipv6: false # false 将返回 AAAA 的空结果
+  # ipv6-timeout: 300 # 单位：ms，内部双栈并发时，向上游查询 AAAA 时，等待 AAAA 的时间，默认 100ms
   enhanced-mode: fake-ip
   # fake-ip 池设置
   fake-ip-range: 198.18.0.1/16
@@ -144,15 +146,18 @@ dns:
      - https://doh.pub/dns-query # DNSPod DoH DNS
      - https://dns.alidns.com/dns-query # 阿里 DoH DNS
      - https://doh.360.cn/dns-query # 360 DoH DNS
-     - https://cloudflare-dns.com/dns-query # Cloudflare DoH DNS
-     - https://dns.google/dns-query # Google DoH DNS
+     - https://dns.rubyfish.cn/dns-query # Rubyfish DoH DNS
 
   # 配置查询需代理域名使用的 DNS 服务器
-  # proxy-server-nameserver:
-  #    - 8.8.8.8
-  #    - 1.1.1.1
-  #    - https://dns.google/dns-query
-  #    - https://cloudflare-dns.com/dns-query
+  proxy-server-nameserver:
+     - 8.8.8.8 # Google DNS
+     - 1.1.1.1 # Cloudflare DNS
+     - 114.114.114.114 # Microsoft DNS
+     - 114.114.115.115 # Microsoft DNS
+     - 4.2.2.2 # Verizon DNS
+     - 4.2.2.1 # Verizon DNS
+     - https://mozilla.cloudflare-dns.com/dns-query # Cloudflare DoH DNS
+     - https://dns.google/dns-query # Google DoH DNS
   
   # 当配置 fallback 时，会查询 nameserver 中返回的 IP 是否为 CN，非必要配置
   # 当不是 CN，则使用 fallback 中的 DNS 查询结果
@@ -164,9 +169,8 @@ dns:
      - 114.114.115.115 # Microsoft DNS
      - 4.2.2.2 # Verizon DNS
      - 4.2.2.1 # Verizon DNS
-     - https://dns.rubyfish.cn/dns-query
-     - https://cloudflare-dns.com/dns-query
-     - https://dns.google/dns-query
+     - https://mozilla.cloudflare-dns.com/dns-query # Cloudflare DoH DNS
+     - https://dns.google/dns-query # Google DoH DNS
 
   # 配置 fallback 使用条件
   fallback-filter:
@@ -175,15 +179,22 @@ dns:
     geosite:
       - gfw
     ipcidr:
-      - '*.lan'
+      # - '*.lan'
       - 240.0.0.0/4,
-      - 0.0.0.0/32
+      # - 0.0.0.0/32
 
   # 配置查询域名使用的 DNS 服务器
-  # nameserver-policy:
+  nameserver-policy:
+    #   'www.baidu.com': '114.114.114.114'
+    #   '+.internal.crop.com': '10.0.0.1'
     # "geosite:cn,private,apple":
     #   - https://doh.pub/dns-query
     #   - https://dns.alidns.com/dns-query
+    "geosite:category-ads-all": rcode://success
+    # "www.baidu.com,+.google.cn": [223.5.5.5, https://dns.alidns.com/dns-query]
+    ## global，dns 为 rule-providers 中的名为 global 和 dns 规则订阅，
+    ## 且 behavior 必须为 domain/classical，当为 classical 时仅会生效域名类规则
+    # "rule-set:global,dns": 8.8.8.8
 
 # rule-providers:
   # exploit-checker:
