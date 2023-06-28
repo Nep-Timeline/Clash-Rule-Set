@@ -162,25 +162,25 @@ dns:
   # 当配置 fallback 时，会查询 nameserver 中返回的 IP 是否为 CN，非必要配置
   # 当不是 CN，则使用 fallback 中的 DNS 查询结果
   # 确保配置 fallback 时能够正常查询
-  fallback:
-     - 8.8.8.8 # Google DNS
-     - 1.1.1.1 # Cloudflare DNS
-     - 114.114.114.114 # Microsoft DNS
-     - 114.114.115.115 # Microsoft DNS
-     - 4.2.2.2 # Verizon DNS
-     - 4.2.2.1 # Verizon DNS
-     - https://mozilla.cloudflare-dns.com/dns-query # Cloudflare DoH DNS
-     - https://dns.google/dns-query # Google DoH DNS
+  # fallback:
+  #   - 8.8.8.8 # Google DNS
+  #   - 1.1.1.1 # Cloudflare DNS
+  #   - 114.114.114.114 # Microsoft DNS
+  #   - 114.114.115.115 # Microsoft DNS
+  #   - 4.2.2.2 # Verizon DNS
+  #   - 4.2.2.1 # Verizon DNS
+  #   - https://mozilla.cloudflare-dns.com/dns-query # Cloudflare DoH DNS
+  #   - https://dns.google/dns-query # Google DoH DNS
 
   # 配置 fallback 使用条件
-  fallback-filter:
-    geoip: true
-    geoip-code: CN
-    geosite:
-      - gfw
-    ipcidr:
+  # fallback-filter:
+  #  geoip: true
+  #  geoip-code: CN
+  #  geosite:
+  #    - gfw
+  #  ipcidr:
       # - '*.lan'
-      - 240.0.0.0/4,
+      # - 240.0.0.0/4
       # - 0.0.0.0/32
 
   # 配置查询域名使用的 DNS 服务器
