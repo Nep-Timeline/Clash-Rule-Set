@@ -4,7 +4,7 @@ mixed-port: 7892 # HTTP(S) 和 SOCKS 代理混合端口
 redir-port: 7893 # 透明代理端口，用于 Linux 和 MacOS
 
 # Transparent proxy server port for Linux (TProxy TCP and TProxy UDP)
-tproxy-port: 7894
+# tproxy-port: 7894
 
 geodata-mode: true
 
