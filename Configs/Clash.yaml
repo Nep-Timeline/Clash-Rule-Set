@@ -8,8 +8,6 @@ mixed-port: 7892 # HTTP(S) 和 SOCKS 代理混合端口
 
 geodata-mode: true
 
-unified-delay: true
-
 allow-lan: true # 允许局域网连接
 bind-address: "*" # 绑定 IP 地址，仅作用于 allow-lan 为 true，'*'表示所有地址
 
@@ -135,17 +133,6 @@ dns:
      - https://doh.360.cn/dns-query # 360 DoH DNS
      - https://dns.rubyfish.cn/dns-query # Rubyfish DoH DNS
 
-  # 配置查询需代理域名使用的 DNS 服务器
-  proxy-server-nameserver:
-     - 8.8.8.8 # Google DNS
-     - 1.1.1.1 # Cloudflare DNS
-     - 114.114.114.114 # Microsoft DNS
-     - 114.114.115.115 # Microsoft DNS
-     - 4.2.2.2 # Verizon DNS
-     - 4.2.2.1 # Verizon DNS
-     - https://mozilla.cloudflare-dns.com/dns-query # Cloudflare DoH DNS
-     - https://dns.google/dns-query # Google DoH DNS
-  
   # 当配置 fallback 时，会查询 nameserver 中返回的 IP 是否为 CN，非必要配置
   # 当不是 CN，则使用 fallback 中的 DNS 查询结果
   # 确保配置 fallback 时能够正常查询
@@ -163,8 +150,6 @@ dns:
   fallback-filter:
     geoip: true
     geoip-code: CN
-    geosite:
-      - gfw
     ipcidr:
       # - '*.lan'
       - 240.0.0.0/4,
