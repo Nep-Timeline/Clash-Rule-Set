@@ -94,5 +94,4 @@ tun:
 
 # DNS配置
 dns:
-  enable: true # 关闭将使用系统 DNS
-  listen: 127.0.0.1:53
+  enable: false # 关闭将使用系统 DNS
