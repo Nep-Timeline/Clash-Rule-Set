@@ -94,4 +94,5 @@ tun:
 
 # DNS配置
 dns:
-  enable: false # 关闭将使用系统 DNS
+  enable: true # 关闭将使用系统 DNS
+  listen: 127.0.0.1:53 # Using Local DNS Resolver
