@@ -49,7 +49,7 @@ profile:
   # 存储 select 选择记录
   store-selected: true
   # 持久化 fake-ip
-  store-fake-ip: true
+  # store-fake-ip: true
 
 # Tun 配置
 tun:
