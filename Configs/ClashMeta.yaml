@@ -195,6 +195,7 @@ dns:
      - https://dns.alidns.com/dns-query # 阿里 DoH DNS
      - https://doh.360.cn/dns-query # 360 DoH DNS
      - https://dns.rubyfish.cn/dns-query # Rubyfish DoH DNS
+     - system  # append DNS server from system configuration. If not found, it would print an error log and skip.
 
   # 配置查询需代理域名使用的 DNS 服务器
   proxy-server-nameserver:
