@@ -14,6 +14,7 @@ tcp-concurrent: true         #【Meta专属】TCP连接并发，如果域名解�
                              # 并发所有IP，选择握手最快的IP进行连接
 
 allow-lan: true # 允许局域网连接
+bind-address: "*" # 绑定 IP 地址，仅作用于 allow-lan 为 true，'*'表示所有地址
 
 #  find-process-mode has 3 values:always, strict, off
 #  - always, 开启，强制匹配所有进程
