@@ -129,7 +129,7 @@ dns:
      - '+.stun.*.*.*.*.*'
      - "localhost.ptlogin2.qq.com"
      # - "*.n.n.srv.nintendo.net"
-     # - +.stun.playstation.net
+     - '*.*.*.stun.playstation.net'
      # - xbox.*.*.microsoft.com
      # - "*.*.xboxlive.com"
      # - "*.msftncsi.com"
