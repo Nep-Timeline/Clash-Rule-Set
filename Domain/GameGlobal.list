@@ -1,1 +1,4 @@
 PROCESS-NAME,csgo.exe
+PROCESS-NAME,cs2.exe
+PROCESS-NAME,r5apex.exe
+PROCESS-NAME,r5apex_dx12.exe
