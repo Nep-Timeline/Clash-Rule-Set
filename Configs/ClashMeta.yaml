@@ -212,13 +212,85 @@ dns:
      - 4.2.2.2 # Verizon DNS
      - 4.2.2.1 # Verizon DNS
      - 94.140.14.14 # AdGuard DNS拦截版 恶意网站拦截、广告过滤
+default-nameserver:
+     - 8.8.8.8 # Google DNS
+     - 8.8.4.4 # Google DNS
+     - "[2001:4860:4860::8888]" # Google IPv6 DNS
+     - "[2001:4860:4860::8844]" # Google IPv6 DNS
+     - 1.1.1.1 # Cloudflare DNS
+     - 1.0.0.1 # Cloudflare DNS
+     - "[2606:4700:4700::1111]" # Cloudflare IPv6 DNS
+     - "[2606:4700:4700::1001]" # Cloudflare IPv6 DNS
+     - 4.2.2.2 # Verizon DNS
+     - 4.2.2.1 # Verizon DNS
+     - 94.140.14.14 # AdGuard DNS拦截版 恶意网站拦截、广告过滤
      - 94.140.15.15 # AdGuard DNS拦截版 恶意网站拦截、广告过滤
      - 94.140.14.140 # AdGuard DNS纯净版 直接返回其真实的响应结果
      - 94.140.14.141 # AdGuard DNS纯净版 直接返回其真实的响应结果
-     - "2a10:50c0::ad1:ff" # AdGuard IPv6 DNS拦截版 恶意网站拦截、广告过滤
-     - "2a10:50c0::ad2:ff" # AdGuard IPv6 DNS拦截版 恶意网站拦截、广告过滤
-     - "2a10:50c0::bad1:ff" # AdGuard IPv6 DNS纯净版 直接返回其真实的响应结果
-     - "2a10:50c0::bad2:ff" # AdGuard IPv6 DNS纯净版 直接返回其真实的响应结果
+     - "[2a10:50c0::ad1:ff]" # AdGuard IPv6 DNS拦截版 恶意网站拦截、广告过滤
+     - "[2a10:50c0::ad2:ff]" # AdGuard IPv6 DNS拦截版 恶意网站拦截、广告过滤
+     - "[2a10:50c0::bad1:ff]" # AdGuard IPv6 DNS纯净版 直接返回其真实的响应结果
+     - "[2a10:50c0::bad2:ff]" # AdGuard IPv6 DNS纯净版 直接返回其真实的响应结果
+     - 223.5.5.5 # 阿里 DNS
+     - 223.6.6.6 # 阿里 DNS
+     - "[2400:3200::1]" # 阿里 IPv6 DNS
+     - "[2400:3200:baba::1]" # 阿里 IPv6 DNS
+     - 119.29.29.29 # 腾讯DNS
+     - 180.76.76.76 # 百度DNS
+     - 117.50.11.11 # ONE DNS拦截版 恶意网站拦截、广告过滤
+     - 117.50.10.10 # ONE DNS纯净版 直接返回其真实的响应结果
+     - 114.114.114.114 # 114 DNS
+     - 114.114.115.115 # 114 DNS
+     - 101.226.4.6 # 360 DNS
+     - 218.30.118.6 # 360 DNS
+     - 123.125.81.6 # 360 DNS
+     - 140.207.198.6 # 360 DNS
+     - system  # append DNS server from system configuration. If not found, it would print an error log and skip.
+
+  # DNS主要域名配置
+  # 支持 UDP，TCP，DoT，DoH，DoQ
+  # 这部分为主要 DNS 配置，影响所有直连，确保使用对大陆解析精准的 DNS
+  nameserver:
+     - 180.76.76.76 # 百度DNS
+     - 223.5.5.5 # 阿里 DNS
+     - 223.6.6.6 # 阿里 DNS
+     - "[2400:3200::1]" # 阿里 IPv6 DNS
+     - "[2400:3200:baba::1]" # 阿里 IPv6 DNS
+     - 119.29.29.29 # 腾讯DNS
+     - 117.50.11.11 # ONE DNS拦截版 恶意网站拦截、广告过滤
+     - 117.50.10.10 # ONE DNS纯净版 直接返回其真实的响应结果
+     - 114.114.114.114 # 114 DNS
+     - 114.114.115.115 # 114 DNS
+     - 101.226.4.6 # 360 DNS
+     - 218.30.118.6 # 360 DNS
+     - 123.125.81.6 # 360 DNS
+     - 140.207.198.6 # 360 DNS
+     - https://doh.pub/dns-query # DNSPod DoH DNS
+     - https://dns.alidns.com/dns-query # 阿里 DoH DNS
+     - https://doh.360.cn/dns-query # 360 DoH DNS
+     - https://dns.rubyfish.cn/dns-query # Rubyfish DoH DNS
+     - system  # append DNS server from system configuration. If not found, it would print an error log and skip.
+
+  # 配置查询需代理域名使用的 DNS 服务器
+  proxy-server-nameserver:
+     - 8.8.8.8 # Google DNS
+     - 8.8.4.4 # Google DNS
+     - "[2001:4860:4860::8888]" # Google IPv6 DNS
+     - "[2001:4860:4860::8844]" # Google IPv6 DNS
+     - 1.1.1.1 # Cloudflare DNS
+     - 1.0.0.1 # Cloudflare DNS
+     - "[2606:4700:4700::1111]" # Cloudflare IPv6 DNS
+     - "[2606:4700:4700::1001]" # Cloudflare IPv6 DNS
+     - 4.2.2.2 # Verizon DNS
+     - 4.2.2.1 # Verizon DNS
+     - 94.140.14.14 # AdGuard DNS拦截版 恶意网站拦截、广告过滤
+     - 94.140.15.15 # AdGuard DNS拦截版 恶意网站拦截、广告过滤
+     - 94.140.14.140 # AdGuard DNS纯净版 直接返回其真实的响应结果
+     - 94.140.14.141 # AdGuard DNS纯净版 直接返回其真实的响应结果
+     - "[2a10:50c0::ad1:ff]" # AdGuard IPv6 DNS拦截版 恶意网站拦截、广告过滤
+     - "[2a10:50c0::ad2:ff]" # AdGuard IPv6 DNS拦截版 恶意网站拦截、广告过滤
+     - "[2a10:50c0::bad1:ff]" # AdGuard IPv6 DNS纯净版 直接返回其真实的响应结果
+     - "[2a10:50c0::bad2:ff]" # AdGuard IPv6 DNS纯净版 直接返回其真实的响应结果
      - https://dns.cloudflare.com/dns-query # Cloudflare DoH DNS
      - https://dns.google/dns-query # Google DoH DNS
      - https://dns.adguard-dns.com/dns-query # AdGuard DoH DNS拦截版 恶意网站拦截、广告过滤
