@@ -4,7 +4,7 @@ mixed-port: 7892 # HTTP(S) 和 SOCKS 代理混合端口
 redir-port: 7893 # 透明代理端口，用于 Linux 和 MacOS
 
 # Transparent proxy server port for Linux (TProxy TCP and TProxy UDP)
-# tproxy-port: 7894
+tproxy-port: 7894
 
 geodata-mode: true
 
@@ -55,13 +55,14 @@ profile:
 # Tun 配置
 tun:
   enable: true
-  stack: system # gvisor / lwip
+  stack: system # gvisor / mixed
   dns-hijack:
     - any:53 # 需要劫持的 DNS
+    - tcp://any:53
   auto-detect-interface: true # 自动识别出口网卡
   auto-route: true # 配置路由表
   # mtu: 9000 # 最大传输单元
-  # strict-route: true # 将所有连接路由到tun来防止泄漏，但你的设备将无法其他设备被访问
+  strict-route: true # 将所有连接路由到tun来防止泄漏，但你的设备将无法其他设备被访问
   # inet4-address: # 必须手动设置ipv4地址段
   #   - 198.19.0.1/30
   # inet6-address: # 必须手动设置ipv6地址段
