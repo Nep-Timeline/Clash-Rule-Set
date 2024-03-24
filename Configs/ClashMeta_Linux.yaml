@@ -59,6 +59,7 @@ tun:
   dns-hijack:
     - any:53 # 需要劫持的 DNS
     - tcp://any:53
+    - udp://any:53
   auto-detect-interface: true # 自动识别出口网卡
   auto-route: true # 配置路由表
   # mtu: 9000 # 最大传输单元
