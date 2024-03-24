@@ -55,7 +55,7 @@ profile:
 # Tun 配置
 tun:
   enable: true
-  stack: system # gvisor / mixed
+  stack: mixed # gvisor / mixed / system
   dns-hijack:
     - any:53 # 需要劫持的 DNS
     - tcp://any:53
