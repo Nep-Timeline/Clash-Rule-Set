@@ -57,7 +57,7 @@ profile:
 # Tun 配置
 tun:
   enable: true
-  stack: mixed # gvisor / mixed / system
+  stack: system # gvisor / mixed / system
   dns-hijack:
     - any:53 # 需要劫持的 DNS
     - tcp://any:53
@@ -99,10 +99,11 @@ tun:
 
 # DNS配置
 dns:
+  cache-algorithm: arc
   enable: true # 关闭将使用系统 DNS
   prefer-h3: true # 开启 DoH 支持 HTTP/3，将并发尝试
   # 开启 DNS 服务器监听
-  listen: :1053
+  listen: 0.0.0.0:1053
   # ipv6: false # false 将返回 AAAA 的空结果
   # ipv6-timeout: 300 # 单位：ms，内部双栈并发时，向上游查询 AAAA 时，等待 AAAA 的时间，默认 100ms
   enhanced-mode: fake-ip
