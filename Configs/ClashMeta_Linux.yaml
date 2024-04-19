@@ -94,8 +94,8 @@ tun:
   # - 10
   # include_package: # 限制被路由的 Android 应用包名
   # - com.android.chrome
-  exclude_package: # 排除被路由的 Android 应用包名
-    - android.process.media
+  # exclude_package: # 排除被路由的 Android 应用包名
+  #  - android.process.media
 
 # DNS配置
 dns:
