@@ -108,7 +108,7 @@ dns:
   # ipv6-timeout: 300 # 单位：ms，内部双栈并发时，向上游查询 AAAA 时，等待 AAAA 的时间，默认 100ms
   enhanced-mode: fake-ip
   # fake-ip 池设置
-  fake-ip-range: 198.18.0.1/16
+  fake-ip-range: 198.18.0.0/15
   # 配置不使用fake-ip的域名
   fake-ip-filter:
      - '*'
