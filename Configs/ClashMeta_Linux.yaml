@@ -54,6 +54,19 @@ profile:
   # 持久化 fake-ip
   # store-fake-ip: true
 
+sniffer:
+  enable: true
+  sniff:
+    HTTP:
+      ports: [80, 8080-8880]
+      override-destination: true
+    TLS:
+      ports: [443, 8443]
+    QUIC:
+      ports: [443, 8443]
+  skip-domain:
+    - "Mijia Cloud"
+
 # Tun 配置
 tun:
   enable: true
@@ -134,7 +147,7 @@ dns:
      - '*.msftconnecttest.com'
      - WORKGROUP
 
-  # use-hosts: true # 查询 hosts
+  use-hosts: true # 查询 hosts
 
   # 用于解析 nameserver，fallback 以及其他DNS服务器配置的，DNS 服务域名
   # 只能使用纯 IP 地址，可使用加密 DNS
