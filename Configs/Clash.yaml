@@ -24,7 +24,7 @@ log-level: info # 日志等级 silent/error/warning/info/debug
 ipv6: true # 开启 IPv6 总开关，关闭阻断所有 IPv6 链接和屏蔽 DNS 请求 AAAA 记录
 
 external-controller: 0.0.0.0:11451
-# secret: "admin"
+secret: "admin"
 
 # 全局 TLS 指纹，优先低于 proxy 内的 client-fingerprint
 # 可选： "chrome","firefox","safari","ios","random","none" options.
@@ -46,7 +46,7 @@ tun:
   auto-detect-interface: true # 自动识别出口网卡
   auto-route: true # 配置路由表
   # mtu: 9000 # 最大传输单元
-  strict-route: true # 将所有连接路由到tun来防止泄漏，但你的设备将无法其他设备被访问
+  # strict-route: true # 将所有连接路由到tun来防止泄漏，但你的设备将无法其他设备被访问
   # inet4-address: # 必须手动设置ipv4地址段
   #   - 198.19.0.1/30
   # inet6-address: # 必须手动设置ipv6地址段
@@ -82,27 +82,36 @@ tun:
 dns:
   enable: true # 关闭将使用系统 DNS
   # 开启 DNS 服务器监听
-  listen: :1053
+  listen: 0.0.0.0:1053
   enhanced-mode: fake-ip
   # fake-ip 池设置
-  fake-ip-range: 198.18.0.1/16
+  fake-ip-range: 198.18.0.0/15
   # 配置不使用fake-ip的域名
   fake-ip-filter:
-     - '*.lan'
-     # - +.stun.*.*
-     # - +.stun.*.*.*
-     # - +.stun.*.*.*.*
-     # - +.stun.*.*.*.*.*
-     - localhost.ptlogin2.qq.com
-     # - "*.n.n.srv.nintendo.net"
-     # - +.stun.playstation.net
-     # - xbox.*.*.microsoft.com
-     # - "*.*.xboxlive.com"
-     # - "*.msftncsi.com"
-     # - "*.msftconnecttest.com"
-     # - WORKGROUP
+     - '*'
+     - '*.invalid.*'
+     - '*.localhost'
+     - "*.lan"
+     - "*.local.*"
+     - '*.time.*'
+     - "*.ntp.*"
+     - '*.time.edu.cn'
+     - '*.ntp.org.cn'
+     - '*.pool.ntp.org'
+     - '*.qpic.cn'
+     - '*.stun.*.*'
+     - '*.stun.*.*.*'
+     - '*.stun.*.*.*.*'
+     - '*.stun.*.*.*.*.*'
+     - 'localhost.ptlogin2.qq.com'
+     - '*.n.n.srv.nintendo.net'
+     - 'xbox.*.*.microsoft.com'
+     - '*.*.xboxlive.com'
+     - '*.msftncsi.com'
+     - '*.msftconnecttest.com'
+     - WORKGROUP
 
-  # use-hosts: true # 查询 hosts
+  use-hosts: true # 查询 hosts
 
   # 用于解析 nameserver，fallback 以及其他DNS服务器配置的，DNS 服务域名
   # 只能使用纯 IP 地址，可使用加密 DNS
@@ -196,6 +205,6 @@ dns:
     geoip: true
     geoip-code: CN
     ipcidr:
-      # - '*.lan'
+      - '*.lan'
       - 240.0.0.0/4,
-      # - 0.0.0.0/32
+      - 0.0.0.0/32
