@@ -28,9 +28,9 @@ mode: rule
 
 #自定义 geodata url
 geox-url:
-  geoip: "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat"
-  geosite: "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat"
-  mmdb: "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/country.mmdb"
+  geoip: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat"
+  geosite: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat"
+  mmdb: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.metadb"
 
 log-level: error # 日志等级 silent/error/warning/info/debug
 
@@ -56,7 +56,7 @@ profile:
   store-fake-ip: true
 
 sniffer:
-  enable: true
+  enable: false # 仅在使用redir-host时需要开启
   sniff:
     HTTP:
       ports: [80, 8080-8880]
@@ -78,6 +78,7 @@ tun:
     - tcp://any:53
     - udp://any:53
   auto-detect-interface: true # 自动识别出口网卡
+  auto-redirect: false # 自动配置 iptables 以重定向 TCP 连接。仅支持 Linux。带有 auto-redirect 的 auto-route 现在可以在路由器上按预期工作，无需干预。
   auto-route: true # 配置路由表
   mtu: 9000 # 最大传输单元
   # strict-route: true # 将所有连接路由到tun来防止泄漏，但你的设备将无法其他设备被访问
@@ -118,7 +119,7 @@ dns:
   enable: true # 关闭将使用系统 DNS
   prefer-h3: true # 开启 DoH 支持 HTTP/3，将并发尝试
   # 开启 DNS 服务器监听
-  listen: 0.0.0.0:1053
+  listen: 0.0.0.0:53
   ipv6: true # false 将返回 AAAA 的空结果
   ipv6-timeout: 300 # 单位：ms，内部双栈并发时，向上游查询 AAAA 时，等待 AAAA 的时间，默认 100ms
   enhanced-mode: fake-ip
@@ -262,14 +263,14 @@ dns:
       # - 0.0.0.0/32
 
   # 配置查询域名使用的 DNS 服务器
-  # nameserver-policy:
+  nameserver-policy:
     #   'www.baidu.com': '114.114.114.114'
     #   '+.internal.crop.com': '10.0.0.1'
-    # "geosite:cn,private,apple":
-    #   - https://doh.pub/dns-query
-    #   - https://dns.alidns.com/dns-query
+    "geosite:cn,private,apple":
+      - https://doh.pub/dns-query
+      - https://dns.alidns.com/dns-query
     # "geosite:category-ads-all": rcode://success
-    # "www.baidu.com,+.google.cn": [223.5.5.5, https://dns.alidns.com/dns-query]
+    "www.baidu.com,+.google.cn": [223.5.5.5, https://dns.alidns.com/dns-query]
     ## global，dns 为 rule-providers 中的名为 global 和 dns 规则订阅，
     ## 且 behavior 必须为 domain/classical，当为 classical 时仅会生效域名类规则
     # "rule-set:global,dns": 8.8.8.8
