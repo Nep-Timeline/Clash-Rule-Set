@@ -127,29 +127,16 @@ dns:
   fake-ip-range: 198.18.0.0/15
   # 配置不使用fake-ip的域名
   fake-ip-filter:
-     - '*'
-     - '*.invalid.*'
-     - '*.localhost'
-     - "*.lan"
-     - "*.local.*"
-     - '*.time.*'
-     - "*.ntp.*"
-     - '*.time.edu.cn'
-     - '*.ntp.org.cn'
-     - '*.pool.ntp.org'
-     - '*.qpic.cn'
-     - '*.stun.*.*'
-     - '*.stun.*.*.*'
-     - '*.stun.*.*.*.*'
-     - '*.stun.*.*.*.*.*'
-     - 'localhost.ptlogin2.qq.com'
-     - '*.n.n.srv.nintendo.net'
-     - 'xbox.*.*.microsoft.com'
-     - '*.*.xboxlive.com'
-     - '*.msftncsi.com'
-     - '*.msftconnecttest.com'
-     - WORKGROUP
-
+    - '*.lan'
+    - localhost.ptlogin2.qq.com
+    # fakeip-filter 为 rule-providers 中的名为 fakeip-filter 规则订阅，
+    # 且 behavior 必须为 domain/classical，当为 classical 时仅会生效域名类规则
+    - rule-set:fakeip-filter
+    # fakeip-filter 为 geosite 中名为 fakeip-filter 的分类（需要自行保证该分类存在）
+    - geosite:fakeip-filter
+  # 配置fake-ip-filter的匹配模式，默认为blacklist，即如果匹配成功不返回fake-ip
+  # 可设置为whitelist，即只有匹配成功才返回fake-ip
+  fake-ip-filter-mode: blacklist
   use-hosts: true # 查询 hosts
 
   # DNS主要域名配置
@@ -200,6 +187,9 @@ dns:
      - https://dns.google/dns-query # Google DoH DNS
      - https://dns.adguard-dns.com/dns-query # AdGuard DoH DNS拦截版 恶意网站拦截、广告过滤
      - https://unfiltered.adguard-dns.com/dns-query # AdGuard DoH DNS纯净版 直接返回其真实的响应结果
+
+  direct-nameserver:
+     - system
   
   # 当配置 fallback 时，会查询 nameserver 中返回的 IP 是否为 CN，非必要配置
   # 当不是 CN，则使用 fallback 中的 DNS 查询结果
