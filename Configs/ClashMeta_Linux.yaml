@@ -72,7 +72,7 @@ sniffer:
 tun:
   enable: true
   device: utun
-  stack: mixed # gvisor / mixed / system
+  stack: gvisor # gvisor / mixed / system
   dns-hijack:
     - any:53 # 需要劫持的 DNS
     - tcp://any:53
@@ -151,6 +151,7 @@ dns:
      - '*.xiami.com'
      - weatherapi.market.xiaomi.com
      - WORKGROUP
+     - geosite:cn
     # fakeip-filter 为 rule-providers 中的名为 fakeip-filter 规则订阅，
     # 且 behavior 必须为 domain/classical，当为 classical 时仅会生效域名类规则
     # - rule-set:fakeip-filter
