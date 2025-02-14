@@ -13,8 +13,8 @@ unified-delay: true
 tcp-concurrent: true         #【Meta专属】TCP连接并发，如果域名解析结果对应多个IP，
                              # 并发所有IP，选择握手最快的IP进行连接
 
-#  TCP keep alive interval
-keep-alive-interval: 30
+# TCP keep alive interval
+# keep-alive-interval: 30
 
 allow-lan: true # 允许局域网连接
 bind-address: "*" # 绑定 IP 地址，仅作用于 allow-lan 为 true，'*'表示所有地址
@@ -136,19 +136,20 @@ dns:
      - '*.stun.*.*.*'
      - '*.stun.*.*.*.*'
      - '*.stun.*.*.*.*.*'
-     - 'localhost.ptlogin2.qq.com'
      - '*.n.n.srv.nintendo.net'
      - 'xbox.*.*.microsoft.com'
      - '*.*.xboxlive.com'
      - '*.msftncsi.com'
      - '*.msftconnecttest.com'
      - WORKGROUP
-
+     - geosite:cn
+     
+  fake-ip-filter-mode: blacklist
   use-hosts: true # 查询 hosts
 
-  # 用于解析 nameserver，fallback 以及其他DNS服务器配置的，DNS 服务域名
-  # 只能使用纯 IP 地址，可使用加密 DNS
-  default-nameserver:
+  # DNS主要域名配置
+  # 支持 UDP，TCP，DoT，DoH，DoQ
+  nameserver:
      - 8.8.8.8 # Google DNS
      - 8.8.4.4 # Google DNS
      - "[2001:4860:4860::8888]" # Google IPv6 DNS
@@ -167,26 +168,13 @@ dns:
      - "[2a10:50c0::ad2:ff]" # AdGuard IPv6 DNS拦截版 恶意网站拦截、广告过滤
      - "[2a10:50c0::bad1:ff]" # AdGuard IPv6 DNS纯净版 直接返回其真实的响应结果
      - "[2a10:50c0::bad2:ff]" # AdGuard IPv6 DNS纯净版 直接返回其真实的响应结果
-     - 223.5.5.5 # 阿里 DNS
-     - 223.6.6.6 # 阿里 DNS
-     - "[2400:3200::1]" # 阿里 IPv6 DNS
-     - "[2400:3200:baba::1]" # 阿里 IPv6 DNS
-     - 119.29.29.29 # 腾讯DNS
-     - 180.76.76.76 # 百度DNS
-     - 117.50.11.11 # ONE DNS拦截版 恶意网站拦截、广告过滤
-     - 117.50.10.10 # ONE DNS纯净版 直接返回其真实的响应结果
-     - 114.114.114.114 # 114 DNS
-     - 114.114.115.115 # 114 DNS
-     - 101.226.4.6 # 360 DNS
-     - 218.30.118.6 # 360 DNS
-     - 123.125.81.6 # 360 DNS
-     - 140.207.198.6 # 360 DNS
-     - system  # append DNS server from system configuration. If not found, it would print an error log and skip.
+     - https://dns.cloudflare.com/dns-query # Cloudflare DoH DNS
+     - https://dns.google/dns-query # Google DoH DNS
+     - https://dns.adguard-dns.com/dns-query # AdGuard DoH DNS拦截版 恶意网站拦截、广告过滤
+     - https://unfiltered.adguard-dns.com/dns-query # AdGuard DoH DNS纯净版 直接返回其真实的响应结果
 
-  # DNS主要域名配置
-  # 支持 UDP，TCP，DoT，DoH，DoQ
-  # 这部分为主要 DNS 配置，影响所有直连，确保使用对大陆解析精准的 DNS
-  nameserver:
+  # 直连DNS
+  direct-nameserver:
      - 180.76.76.76 # 百度DNS
      - 223.5.5.5 # 阿里 DNS
      - 223.6.6.6 # 阿里 DNS
@@ -231,48 +219,3 @@ dns:
      - https://dns.google/dns-query # Google DoH DNS
      - https://dns.adguard-dns.com/dns-query # AdGuard DoH DNS拦截版 恶意网站拦截、广告过滤
      - https://unfiltered.adguard-dns.com/dns-query # AdGuard DoH DNS纯净版 直接返回其真实的响应结果
-  
-  # 当配置 fallback 时，会查询 nameserver 中返回的 IP 是否为 CN，非必要配置
-  # 当不是 CN，则使用 fallback 中的 DNS 查询结果
-  # 确保配置 fallback 时能够正常查询
-  # fallback:
-  #    - 8.8.8.8 # Google DNS
-  #    - 1.1.1.1 # Cloudflare DNS
-  #    - 114.114.114.114 # Microsoft DNS
-  #    - 114.114.115.115 # Microsoft DNS
-  #    - 4.2.2.2 # Verizon DNS
-  #    - 4.2.2.1 # Verizon DNS
-  #    - https://mozilla.cloudflare-dns.com/dns-query # Cloudflare DoH DNS
-  #    - https://dns.google/dns-query # Google DoH DNS
-
-  # 配置 fallback 使用条件
-  # fallback-filter:
-  #  geoip: true
-  #  geoip-code: CN
-  #  geosite:
-  #     - gfw
-  #  ipcidr:
-      # - '*.lan'
-  #     - 240.0.0.0/4
-      # - 0.0.0.0/32
-
-  # 配置查询域名使用的 DNS 服务器
-  # nameserver-policy:
-    #   'www.baidu.com': '114.114.114.114'
-    #   '+.internal.crop.com': '10.0.0.1'
-    # "geosite:cn,private,apple":
-    #   - https://doh.pub/dns-query
-    #   - https://dns.alidns.com/dns-query
-    # "geosite:category-ads-all": rcode://success
-    # "www.baidu.com,+.google.cn": [223.5.5.5, https://dns.alidns.com/dns-query]
-    ## global，dns 为 rule-providers 中的名为 global 和 dns 规则订阅，
-    ## 且 behavior 必须为 domain/classical，当为 classical 时仅会生效域名类规则
-    # "rule-set:global,dns": 8.8.8.8
-
-# rule-providers:
-  # exploit-checker:
-    # type: http
-    # behavior: domain
-    # url: "https://Nep-Timeline.github.io/Clash-Rule-Set/Configs/CFW-Settings.yaml"
-    # path: ./CFW-Settings.yaml
-    # interval: 86400
