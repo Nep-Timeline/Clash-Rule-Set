@@ -72,7 +72,7 @@ sniffer:
 tun:
   enable: true
   device: meta
-  stack: gvisor # gvisor / mixed / system
+  stack: mixed # gvisor / mixed / system
   dns-hijack:
     - any:53 # 需要劫持的 DNS
     - tcp://any:53
@@ -82,8 +82,8 @@ tun:
   auto-route: true # 配置路由表
   strict-route: true # 将所有连接路由到tun来防止泄漏，但你的设备将无法其他设备被访问
   route-exclude-address:
-  - 192.168.0.0/16
-  - fc00::/7
+    - 192.168.0.0/16
+    - fc00::/7
   # mtu: 9000 # 最大传输单元
   # inet4-address: # 必须手动设置ipv4地址段
   #   - 198.19.0.1/30
