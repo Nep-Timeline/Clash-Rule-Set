@@ -19,6 +19,17 @@ tcp-concurrent: true         #【Meta专属】TCP连接并发，如果域名解�
 allow-lan: true # 允许局域网连接
 bind-address: "*" # 绑定 IP 地址，仅作用于 allow-lan 为 true，'*'表示所有地址
 
+authentication: # http,socks 入口的验证用户名，密码
+  - "root:root"
+skip-auth-prefixes: # 设置跳过验证的 IP 段
+  - 127.0.0.1/8
+  - ::1/128
+lan-allowed-ips: # 允许连接的 IP 地址段，仅作用于 allow-lan 为 true, 默认值为 0.0.0.0/0 和::/0
+  - 0.0.0.0/0
+  - ::/0
+lan-disallowed-ips: # 禁止连接的 IP 地址段，黑名单优先级高于白名单，默认值为空
+  - 192.168.0.3/32
+
 #  find-process-mode has 3 values:always, strict, off
 #  - always, 开启，强制匹配所有进程
 #  - strict, 默认，由 clash 判断是否开启
@@ -71,7 +82,6 @@ sniffer:
 # Tun 配置
 tun:
   enable: true
-  device: meta
   stack: mixed # gvisor / mixed / system
   dns-hijack:
     - any:53 # 需要劫持的 DNS
@@ -124,107 +134,27 @@ dns:
   # 开启 DNS 服务器监听
   listen: 0.0.0.0:1053
   ipv6: true # false 将返回 AAAA 的空结果
-  ipv6-timeout: 300 # 单位：ms，内部双栈并发时，向上游查询 AAAA 时，等待 AAAA 的时间，默认 100ms
+  # ipv6-timeout: 300 # 单位：ms，内部双栈并发时，向上游查询 AAAA 时，等待 AAAA 的时间，默认 100ms
   enhanced-mode: redir-host
   # fake-ip 池设置
   fake-ip-range: 198.18.0.0/15
-  # 配置不使用fake-ip的域名
-  fake-ip-filter:
-     - '*'
-     - '*.invalid.*'
-     - '*.localhost'
-     - "*.lan"
-     - "*.local.*"
-     - '*.time.*'
-     - "*.ntp.*"
-     - '*.time.edu.cn'
-     - '*.ntp.org.cn'
-     - '*.pool.ntp.org'
-     - '*.qpic.cn'
-     - '*.stun.*.*'
-     - '*.stun.*.*.*'
-     - '*.stun.*.*.*.*'
-     - '*.stun.*.*.*.*.*'
-     - '*.n.n.srv.nintendo.net'
-     - 'xbox.*.*.microsoft.com'
-     - '*.*.xboxlive.com'
-     - '*.msftncsi.com'
-     - '*.msftconnecttest.com'
-     - WORKGROUP
-     - geosite:cn
-     
-  fake-ip-filter-mode: blacklist
   use-hosts: true # 查询 hosts
-
   # DNS主要域名配置
   # 支持 UDP，TCP，DoT，DoH，DoQ
   nameserver:
-     - 8.8.8.8 # Google DNS
-     - 8.8.4.4 # Google DNS
-     - "[2001:4860:4860::8888]" # Google IPv6 DNS
-     - "[2001:4860:4860::8844]" # Google IPv6 DNS
-     - 1.1.1.1 # Cloudflare DNS
-     - 1.0.0.1 # Cloudflare DNS
-     - "[2606:4700:4700::1111]" # Cloudflare IPv6 DNS
-     - "[2606:4700:4700::1001]" # Cloudflare IPv6 DNS
-     - 4.2.2.2 # Verizon DNS
-     - 4.2.2.1 # Verizon DNS
-     - 94.140.14.14 # AdGuard DNS拦截版 恶意网站拦截、广告过滤
-     - 94.140.15.15 # AdGuard DNS拦截版 恶意网站拦截、广告过滤
-     - 94.140.14.140 # AdGuard DNS纯净版 直接返回其真实的响应结果
-     - 94.140.14.141 # AdGuard DNS纯净版 直接返回其真实的响应结果
-     - "[2a10:50c0::ad1:ff]" # AdGuard IPv6 DNS拦截版 恶意网站拦截、广告过滤
-     - "[2a10:50c0::ad2:ff]" # AdGuard IPv6 DNS拦截版 恶意网站拦截、广告过滤
-     - "[2a10:50c0::bad1:ff]" # AdGuard IPv6 DNS纯净版 直接返回其真实的响应结果
-     - "[2a10:50c0::bad2:ff]" # AdGuard IPv6 DNS纯净版 直接返回其真实的响应结果
      - https://dns.cloudflare.com/dns-query # Cloudflare DoH DNS
+     - https://dns64.cloudflare-dns.com/dns-query # Cloudflare DoH DNS64
      - https://dns.google/dns-query # Google DoH DNS
-     - https://dns.adguard-dns.com/dns-query # AdGuard DoH DNS拦截版 恶意网站拦截、广告过滤
-     - https://unfiltered.adguard-dns.com/dns-query # AdGuard DoH DNS纯净版 直接返回其真实的响应结果
-
-  # 直连DNS
-  direct-nameserver:
-     - 180.76.76.76 # 百度DNS
-     - 223.5.5.5 # 阿里 DNS
-     - 223.6.6.6 # 阿里 DNS
-     - "[2400:3200::1]" # 阿里 IPv6 DNS
-     - "[2400:3200:baba::1]" # 阿里 IPv6 DNS
-     - 119.29.29.29 # 腾讯DNS
-     - 117.50.11.11 # ONE DNS拦截版 恶意网站拦截、广告过滤
-     - 117.50.10.10 # ONE DNS纯净版 直接返回其真实的响应结果
-     - 114.114.114.114 # 114 DNS
-     - 114.114.115.115 # 114 DNS
-     - 101.226.4.6 # 360 DNS
-     - 218.30.118.6 # 360 DNS
-     - 123.125.81.6 # 360 DNS
-     - 140.207.198.6 # 360 DNS
-     - https://doh.pub/dns-query # DNSPod DoH DNS
-     - https://dns.alidns.com/dns-query # 阿里 DoH DNS
-     - https://doh.360.cn/dns-query # 360 DoH DNS
-     - https://dns.rubyfish.cn/dns-query # Rubyfish DoH DNS
-     - system  # append DNS server from system configuration. If not found, it would print an error log and skip.
-
-  # 配置查询需代理域名使用的 DNS 服务器
-  proxy-server-nameserver:
-     - 8.8.8.8 # Google DNS
-     - 8.8.4.4 # Google DNS
-     - "[2001:4860:4860::8888]" # Google IPv6 DNS
-     - "[2001:4860:4860::8844]" # Google IPv6 DNS
-     - 1.1.1.1 # Cloudflare DNS
-     - 1.0.0.1 # Cloudflare DNS
-     - "[2606:4700:4700::1111]" # Cloudflare IPv6 DNS
-     - "[2606:4700:4700::1001]" # Cloudflare IPv6 DNS
-     - 4.2.2.2 # Verizon DNS
-     - 4.2.2.1 # Verizon DNS
-     - 94.140.14.14 # AdGuard DNS拦截版 恶意网站拦截、广告过滤
-     - 94.140.15.15 # AdGuard DNS拦截版 恶意网站拦截、广告过滤
-     - 94.140.14.140 # AdGuard DNS纯净版 直接返回其真实的响应结果
-     - 94.140.14.141 # AdGuard DNS纯净版 直接返回其真实的响应结果
-     - "[2a10:50c0::ad1:ff]" # AdGuard IPv6 DNS拦截版 恶意网站拦截、广告过滤
-     - "[2a10:50c0::ad2:ff]" # AdGuard IPv6 DNS拦截版 恶意网站拦截、广告过滤
-     - "[2a10:50c0::bad1:ff]" # AdGuard IPv6 DNS纯净版 直接返回其真实的响应结果
-     - "[2a10:50c0::bad2:ff]" # AdGuard IPv6 DNS纯净版 直接返回其真实的响应结果
-     - https://dns.cloudflare.com/dns-query # Cloudflare DoH DNS
-     - https://dns.google/dns-query # Google DoH DNS
-     - https://dns.adguard-dns.com/dns-query # AdGuard DoH DNS拦截版 恶意网站拦截、广告过滤
-     - https://unfiltered.adguard-dns.com/dns-query # AdGuard DoH DNS纯净版 直接返回其真实的响应结果
+     - https://dns64.dns.google/dns-query # Google DoH DNS64
+  # 配置查询域名使用的 DNS 服务器
+  nameserver-policy:
+    "geosite:cn,private":
+      - https://doh.pub/dns-query # DNSPod DoH DNS
+      - https://dns.alidns.com/dns-query # 阿里 DoH DNS
+      - https://doh.360.cn/dns-query # 360 DoH DNS
+      - https://dns.rubyfish.cn/dns-query # Rubyfish DoH DNS
+    "geosite:geolocation-!cn":
+      - https://dns.cloudflare.com/dns-query # Cloudflare DoH DNS
+      - https://dns64.cloudflare-dns.com/dns-query # Cloudflare DoH DNS64
+      - https://dns.google/dns-query # Google DoH DNS
+      - https://dns64.dns.google/dns-query # Google DoH DNS64
