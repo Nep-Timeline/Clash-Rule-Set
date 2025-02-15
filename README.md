@@ -1,2 +1,2 @@
 # Clash rule set
-Rule set for Clash Meta Kernel.
+Rule set for Clash Premium / Mihomo Kernel.
