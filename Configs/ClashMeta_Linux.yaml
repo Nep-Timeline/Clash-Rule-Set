@@ -127,9 +127,7 @@ dns:
   # 支持 UDP，TCP，DoT，DoH，DoQ
   nameserver:
      - https://dns.cloudflare.com/dns-query # Cloudflare DoH DNS
-     - https://dns64.cloudflare-dns.com/dns-query # Cloudflare DoH DNS64
      - https://dns.google/dns-query # Google DoH DNS
-     - https://dns64.dns.google/dns-query # Google DoH DNS64
   # 配置查询域名使用的 DNS 服务器
   nameserver-policy:
     "geosite:cn,private":
@@ -137,8 +135,6 @@ dns:
       - https://dns.alidns.com/dns-query # 阿里 DoH DNS
       - https://doh.360.cn/dns-query # 360 DoH DNS
       - https://dns.rubyfish.cn/dns-query # Rubyfish DoH DNS
-    "geosite:geolocation-!cn":
-      - https://dns.cloudflare.com/dns-query # Cloudflare DoH DNS
-      - https://dns64.cloudflare-dns.com/dns-query # Cloudflare DoH DNS64
-      - https://dns.google/dns-query # Google DoH DNS
-      - https://dns64.dns.google/dns-query # Google DoH DNS64
+    # "geosite:geolocation-!cn":
+    #   - https://dns.cloudflare.com/dns-query # Cloudflare DoH DNS
+    #   - https://dns.google/dns-query # Google DoH DNS
