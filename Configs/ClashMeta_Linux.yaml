@@ -55,7 +55,7 @@ secret: "admin"
 # 可选： "chrome","firefox","safari","ios","random","none" options.
 # Utls is currently support TLS transport in TCP/grpc/WS/HTTP for VLESS/Vmess and trojan.
 global-client-fingerprint: chrome
-geodata-loader: standard # memconservative（小内存）
+geodata-loader: memconservative # memconservative (Low memory), standard
 
 # iptables:
 #   enable: false
