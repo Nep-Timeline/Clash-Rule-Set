@@ -1,10 +1,10 @@
 # port: 7890 # HTTP(S) 代理服务器端口
 # socks-port: 7891 # SOCKS5 代理端口
-mixed-port: 7892 # HTTP(S) 和 SOCKS 代理混合端口
-redir-port: 7893 # 透明代理端口，用于 Linux 和 MacOS
+mixed-port: 7890 # HTTP(S) 和 SOCKS 代理混合端口
+redir-port: 7891 # 透明代理端口，用于 Linux 和 MacOS
 
 # Transparent proxy server port for Linux (TProxy TCP and TProxy UDP)
-tproxy-port: 7894
+tproxy-port: 7892
 
 geodata-mode: true
 
@@ -13,7 +13,7 @@ unified-delay: true
 tcp-concurrent: true         #【Meta专属】TCP连接并发，如果域名解析结果对应多个IP，并发所有IP，选择握手最快的IP进行连接
 
 # TCP keep alive interval
-keep-alive-interval: 30
+# keep-alive-interval: 30
 
 allow-lan: true # 允许局域网连接
 bind-address: "*" # 绑定 IP 地址，仅作用于 allow-lan 为 true，'*'表示所有地址
@@ -68,8 +68,8 @@ profile:
 
 sniffer:
   enable: true
-  # force-dns-mapping: true
-  # parse-pure-ip: true
+  force-dns-mapping: true
+  parse-pure-ip: true
   override-destination: false
   sniff:
     HTTP:
@@ -87,7 +87,7 @@ tun:
   dns-hijack:
     - any:53 # 需要劫持的 DNS
     - tcp://any:53
-    - udp://any:53
+    # - udp://any:53
   auto-detect-interface: true # 自动识别出口网卡
   # auto-redirect: false # 自动配置 iptables 以重定向 TCP 连接。仅支持 Linux。带有 auto-redirect 的 auto-route 现在可以在路由器上按预期工作，无需干预。
   auto-route: true # 配置路由表
@@ -111,7 +111,7 @@ tun:
 dns:
   # cache-algorithm: arc
   enable: true # 关闭将使用系统 DNS
-  # prefer-h3: true # 开启 DoH 支持 HTTP/3，将并发尝试
+  prefer-h3: true # 开启 DoH 支持 HTTP/3，将并发尝试
   # 开启 DNS 服务器监听
   listen: 0.0.0.0:1053
   ipv6: true # false 将返回 AAAA 的空结果
@@ -141,7 +141,6 @@ dns:
      - https://dns.google/dns-query # Google DoH DNS
      - https://dns.adguard-dns.com/dns-query # AdGuard DoH DNS拦截版 恶意网站拦截、广告过滤
      - https://unfiltered.adguard-dns.com/dns-query # AdGuard DoH DNS纯净版 直接返回其真实的响应结果
-
   # 直连DNS
   direct-nameserver:
      - 180.76.76.76 # 百度DNS
@@ -179,7 +178,7 @@ dns:
      - https://dns.cloudflare.com/dns-query # Cloudflare DoH DNS
      - https://dns.google/dns-query # Google DoH DNS
      - https://unfiltered.adguard-dns.com/dns-query # AdGuard DoH DNS纯净版 直接返回其真实的响应结果
-     
+  direct-nameserver-follow-policy: true
   # 配置查询需代理域名使用的 DNS 服务器
   proxy-server-nameserver:
      - 8.8.8.8 # Google DNS
@@ -199,3 +198,41 @@ dns:
      - https://dns.cloudflare.com/dns-query # Cloudflare DoH DNS
      - https://dns.google/dns-query # Google DoH DNS
      - https://unfiltered.adguard-dns.com/dns-query # AdGuard DoH DNS纯净版 直接返回其真实的响应结果
+  nameserver-policy:
+    "geosite:cn,private":
+      - 180.76.76.76
+      - 223.5.5.5
+      - 223.6.6.6
+      - "[2400:3200::1]"
+      - "[2400:3200:baba::1]"
+      - 119.29.29.29
+      - 117.50.11.11
+      - 117.50.10.10
+      - 114.114.114.114
+      - 114.114.115.115
+      - 101.226.4.6
+      - 218.30.118.6
+      - 123.125.81.6
+      - 140.207.198.6
+      - https://doh.pub/dns-query
+      - https://dns.alidns.com/dns-query
+      - https://doh.360.cn/dns-query
+      - https://dns.rubyfish.cn/dns-query
+    "geosite:geolocation-!cn":
+      - 8.8.8.8
+      - 8.8.4.4
+      - "[2001:4860:4860::8888]"
+      - "[2001:4860:4860::8844]"
+      - 1.1.1.1
+      - 1.0.0.1
+      - "[2606:4700:4700::1111]"
+      - "[2606:4700:4700::1001]"
+      - 4.2.2.2
+      - 4.2.2.1
+      - 94.140.14.140
+      - 94.140.14.141
+      - "[2a10:50c0::bad1:ff]"
+      - "[2a10:50c0::bad2:ff]"
+      - https://dns.cloudflare.com/dns-query
+      - https://dns.google/dns-query
+      - https://unfiltered.adguard-dns.com/dns-query
