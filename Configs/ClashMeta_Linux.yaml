@@ -218,7 +218,7 @@ dns:
       - https://dns.alidns.com/dns-query
       - https://doh.360.cn/dns-query
       - https://dns.rubyfish.cn/dns-query
-    "geosite:geolocation-!cn":
+    "geosite:geolocation-!cn,gfw":
       - 8.8.8.8
       - 8.8.4.4
       - "[2001:4860:4860::8888]"
