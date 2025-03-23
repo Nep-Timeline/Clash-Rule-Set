@@ -68,9 +68,9 @@ profile:
 
 sniffer:
   enable: true
-  force-dns-mapping: true
-  parse-pure-ip: true
-  override-destination: false
+  # force-dns-mapping: true
+  # parse-pure-ip: true
+  # override-destination: false
   sniff:
     HTTP:
       ports: [80, 8080-8880]
@@ -123,20 +123,20 @@ dns:
   # 支持 UDP，TCP，DoT，DoH，DoQ
   # 这部分为主要 DNS 配置，影响所有直连，确保使用对大陆解析精准的 DNS
   nameserver:
-     - 8.8.8.8 # Google DNS
-     - 8.8.4.4 # Google DNS
-     - "[2001:4860:4860::8888]" # Google IPv6 DNS
-     - "[2001:4860:4860::8844]" # Google IPv6 DNS
-     - 1.1.1.1 # Cloudflare DNS
-     - 1.0.0.1 # Cloudflare DNS
-     - "[2606:4700:4700::1111]" # Cloudflare IPv6 DNS
-     - "[2606:4700:4700::1001]" # Cloudflare IPv6 DNS
-     - 4.2.2.2 # Verizon DNS
-     - 4.2.2.1 # Verizon DNS
-     - 94.140.14.140 # AdGuard DNS纯净版 直接返回其真实的响应结果
-     - 94.140.14.141 # AdGuard DNS纯净版 直接返回其真实的响应结果
-     - "[2a10:50c0::bad1:ff]" # AdGuard IPv6 DNS纯净版 直接返回其真实的响应结果
-     - "[2a10:50c0::bad2:ff]" # AdGuard IPv6 DNS纯净版 直接返回其真实的响应结果
+     - # 8.8.8.8 # Google DNS
+     - # 8.8.4.4 # Google DNS
+     - # "[2001:4860:4860::8888]" # Google IPv6 DNS
+     - # "[2001:4860:4860::8844]" # Google IPv6 DNS
+     - # 1.1.1.1 # Cloudflare DNS
+     - # 1.0.0.1 # Cloudflare DNS
+     - # "[2606:4700:4700::1111]" # Cloudflare IPv6 DNS
+     - # "[2606:4700:4700::1001]" # Cloudflare IPv6 DNS
+     - # 4.2.2.2 # Verizon DNS
+     - # 4.2.2.1 # Verizon DNS
+     - # 94.140.14.140 # AdGuard DNS纯净版 直接返回其真实的响应结果
+     - # 94.140.14.141 # AdGuard DNS纯净版 直接返回其真实的响应结果
+     - # "[2a10:50c0::bad1:ff]" # AdGuard IPv6 DNS纯净版 直接返回其真实的响应结果
+     - # "[2a10:50c0::bad2:ff]" # AdGuard IPv6 DNS纯净版 直接返回其真实的响应结果
      - https://dns.cloudflare.com/dns-query # Cloudflare DoH DNS
      - https://dns.google/dns-query # Google DoH DNS
      - https://dns.adguard-dns.com/dns-query # AdGuard DoH DNS拦截版 恶意网站拦截、广告过滤
@@ -161,40 +161,40 @@ dns:
      - https://dns.alidns.com/dns-query # 阿里 DoH DNS
      - https://doh.360.cn/dns-query # 360 DoH DNS
      - https://dns.rubyfish.cn/dns-query # Rubyfish DoH DNS
-     - 8.8.8.8 # Google DNS
-     - 8.8.4.4 # Google DNS
-     - "[2001:4860:4860::8888]" # Google IPv6 DNS
-     - "[2001:4860:4860::8844]" # Google IPv6 DNS
-     - 1.1.1.1 # Cloudflare DNS
-     - 1.0.0.1 # Cloudflare DNS
-     - "[2606:4700:4700::1111]" # Cloudflare IPv6 DNS
-     - "[2606:4700:4700::1001]" # Cloudflare IPv6 DNS
-     - 4.2.2.2 # Verizon DNS
-     - 4.2.2.1 # Verizon DNS
-     - 94.140.14.140 # AdGuard DNS纯净版 直接返回其真实的响应结果
-     - 94.140.14.141 # AdGuard DNS纯净版 直接返回其真实的响应结果
-     - "[2a10:50c0::bad1:ff]" # AdGuard IPv6 DNS纯净版 直接返回其真实的响应结果
-     - "[2a10:50c0::bad2:ff]" # AdGuard IPv6 DNS纯净版 直接返回其真实的响应结果
+     - # 8.8.8.8 # Google DNS
+     - # 8.8.4.4 # Google DNS
+     - # "[2001:4860:4860::8888]" # Google IPv6 DNS
+     - # "[2001:4860:4860::8844]" # Google IPv6 DNS
+     - # 1.1.1.1 # Cloudflare DNS
+     - # 1.0.0.1 # Cloudflare DNS
+     - # "[2606:4700:4700::1111]" # Cloudflare IPv6 DNS
+     - # "[2606:4700:4700::1001]" # Cloudflare IPv6 DNS
+     - # 4.2.2.2 # Verizon DNS
+     - # 4.2.2.1 # Verizon DNS
+     - # 94.140.14.140 # AdGuard DNS纯净版 直接返回其真实的响应结果
+     - # 94.140.14.141 # AdGuard DNS纯净版 直接返回其真实的响应结果
+     - # "[2a10:50c0::bad1:ff]" # AdGuard IPv6 DNS纯净版 直接返回其真实的响应结果
+     - # "[2a10:50c0::bad2:ff]" # AdGuard IPv6 DNS纯净版 直接返回其真实的响应结果
      - https://dns.cloudflare.com/dns-query # Cloudflare DoH DNS
      - https://dns.google/dns-query # Google DoH DNS
      - https://unfiltered.adguard-dns.com/dns-query # AdGuard DoH DNS纯净版 直接返回其真实的响应结果
   direct-nameserver-follow-policy: true
   # 配置查询需代理域名使用的 DNS 服务器
   proxy-server-nameserver:
-     - 8.8.8.8 # Google DNS
-     - 8.8.4.4 # Google DNS
-     - "[2001:4860:4860::8888]" # Google IPv6 DNS
-     - "[2001:4860:4860::8844]" # Google IPv6 DNS
-     - 1.1.1.1 # Cloudflare DNS
-     - 1.0.0.1 # Cloudflare DNS
-     - "[2606:4700:4700::1111]" # Cloudflare IPv6 DNS
-     - "[2606:4700:4700::1001]" # Cloudflare IPv6 DNS
-     - 4.2.2.2 # Verizon DNS
-     - 4.2.2.1 # Verizon DNS
-     - 94.140.14.140 # AdGuard DNS纯净版 直接返回其真实的响应结果
-     - 94.140.14.141 # AdGuard DNS纯净版 直接返回其真实的响应结果
-     - "[2a10:50c0::bad1:ff]" # AdGuard IPv6 DNS纯净版 直接返回其真实的响应结果
-     - "[2a10:50c0::bad2:ff]" # AdGuard IPv6 DNS纯净版 直接返回其真实的响应结果
+     - # 8.8.8.8 # Google DNS
+     - # 8.8.4.4 # Google DNS
+     - # "[2001:4860:4860::8888]" # Google IPv6 DNS
+     - # "[2001:4860:4860::8844]" # Google IPv6 DNS
+     - # 1.1.1.1 # Cloudflare DNS
+     - # 1.0.0.1 # Cloudflare DNS
+     - # "[2606:4700:4700::1111]" # Cloudflare IPv6 DNS
+     - # "[2606:4700:4700::1001]" # Cloudflare IPv6 DNS
+     - # 4.2.2.2 # Verizon DNS
+     - # 4.2.2.1 # Verizon DNS
+     - # 94.140.14.140 # AdGuard DNS纯净版 直接返回其真实的响应结果
+     - # 94.140.14.141 # AdGuard DNS纯净版 直接返回其真实的响应结果
+     - # "[2a10:50c0::bad1:ff]" # AdGuard IPv6 DNS纯净版 直接返回其真实的响应结果
+     - # "[2a10:50c0::bad2:ff]" # AdGuard IPv6 DNS纯净版 直接返回其真实的响应结果
      - https://dns.cloudflare.com/dns-query # Cloudflare DoH DNS
      - https://dns.google/dns-query # Google DoH DNS
      - https://unfiltered.adguard-dns.com/dns-query # AdGuard DoH DNS纯净版 直接返回其真实的响应结果
@@ -219,20 +219,20 @@ dns:
       - https://doh.360.cn/dns-query
       - https://dns.rubyfish.cn/dns-query
     "geosite:geolocation-!cn,gfw":
-      - 8.8.8.8
-      - 8.8.4.4
-      - "[2001:4860:4860::8888]"
-      - "[2001:4860:4860::8844]"
-      - 1.1.1.1
-      - 1.0.0.1
-      - "[2606:4700:4700::1111]"
-      - "[2606:4700:4700::1001]"
-      - 4.2.2.2
-      - 4.2.2.1
-      - 94.140.14.140
-      - 94.140.14.141
-      - "[2a10:50c0::bad1:ff]"
-      - "[2a10:50c0::bad2:ff]"
+      - # 8.8.8.8
+      - # 8.8.4.4
+      - # "[2001:4860:4860::8888]"
+      - # "[2001:4860:4860::8844]"
+      - # 1.1.1.1
+      - # 1.0.0.1
+      - # "[2606:4700:4700::1111]"
+      - # "[2606:4700:4700::1001]"
+      - # 4.2.2.2
+      - # 4.2.2.1
+      - # 94.140.14.140
+      - # 94.140.14.141
+      - # "[2a10:50c0::bad1:ff]"
+      - # "[2a10:50c0::bad2:ff]"
       - https://dns.cloudflare.com/dns-query
       - https://dns.google/dns-query
       - https://unfiltered.adguard-dns.com/dns-query
