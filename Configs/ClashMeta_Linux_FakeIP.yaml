@@ -53,7 +53,11 @@ dns:
   direct-nameserver:
     - https://doh.pub/dns-query
     - https://dns.alidns.com/dns-query
+    - https://dns.google/dns-query
+    - https://cloudflare-dns.com/dns-query
   proxy-server-nameserver:
+    - https://dns.google/dns-query
+    - https://cloudflare-dns.com/dns-query
     - https://doh.pub/dns-query
     - https://dns.alidns.com/dns-query
   nameserver-policy:
