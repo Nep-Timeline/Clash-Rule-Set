@@ -50,6 +50,7 @@ dns:
   fake-ip-filter:
     - "geosite:cn,private"
     - "localhost.ptlogin2.qq.com"
+    - "+.mtalk.google.com"
   direct-nameserver:
     - https://doh.pub/dns-query
     - https://dns.alidns.com/dns-query
