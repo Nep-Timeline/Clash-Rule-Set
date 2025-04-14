@@ -32,15 +32,6 @@ tun:
   udp-timeout: 300
   auto-route: true
   strict-route: true
-  auto-redirect: false
-  auto-detect-interface: true
-  route-exclude-address:
-    - 192.168.0.0/16
-    - 10.0.0.0/8
-    - 172.16.0.0/12
-    - 100.64.0.0/10
-    - fc00::/7
-    - fe80::/10
 dns:
   enable: true
   ipv6: true
@@ -68,3 +59,5 @@ dns:
   nameserver:
     - https://dns.google/dns-query
     - https://cloudflare-dns.com/dns-query
+    - https://doh.pub/dns-query
+    - https://dns.alidns.com/dns-query
