@@ -73,7 +73,7 @@ sniffer:
 # Tun 配置
 tun:
   enable: true
-  device: wlanx0
+  device: Meta
   stack: gvisor # gvisor / mixed / system
   dns-hijack:
     - any:53 # 需要劫持的 DNS
